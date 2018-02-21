@@ -13,5 +13,8 @@
 *.fdb_latexmk
 *.synctex.gz
 
+# Theorem files:
+*.thm
+
 ## Generated pdf files:
 *.pdf
