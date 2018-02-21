@@ -1,4 +1,6 @@
-\documentclass[12pt, a4paper, titlepage]{article}
+\documentclass[11pt, a4paper, titlepage]{article}
+
+% packages
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -6,18 +8,62 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{graphicx}
-
-\usepackage{relsize}
-
 \usepackage{setspace}
 \usepackage{wrapfig}
+\usepackage{cite}
+\usepackage{indentfirst}
 
+%% package and package-dependent commands
+
+\usepackage{graphicx}
 \graphicspath{{./images/}}
 
-% commands
+\usepackage[thmmarks]{ntheorem}
+\theoremstyle{plain}
+\theoremheaderfont{\normalfont\bfseries}
+\theorembodyfont{\normalfont}
+\theoremseparator{.}
+\theorempreskip{\topsep}
+\theorempostskip{\topsep}
+\theoremindent0.5cm
+\theoremnumbering{arabic}
+\theoremsymbol{\ensuremath{\ast}}
+\newtheorem{Definition}{Definition}
 
-\newcommand\CC{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\relsize{-3}{\textbf{++}}}}
+\usepackage{xargs}
+\usepackage[pdftex,dvipsnames,hyperref]{xcolor}
+\definecolor{href_blue}{rgb}{.2,.56,1}
+\definecolor{todo_red}{rgb}{.9,.16,.1}
+\definecolor{todo_orange}{rgb}{.99,.59,.12}
+\definecolor{todo_yellow}{rgb}{.9,.86,.45}
+\usepackage[colorlinks,allcolors=href_blue]{hyperref}
+\usepackage[
+  colorinlistoftodos,
+  prependcaption,
+  backgroundcolor=todo_yellow,
+  linecolor=todo_yellow,
+  textsize=tiny
+]{todonotes}
+\newcommandx{\fix}[2][1=]{
+  \todo[
+    backgroundcolor=todo_red,
+    linecolor=todo_red,
+    #1
+  ]{#2}
+}
+\newcommandx{\wip}[2][1=]{
+  \todo[
+    backgroundcolor=todo_orange,
+    linecolor=todo_orange,
+    #1
+  ]{#2}
+}
+
+\usepackage{relsize}
+\newcommand{\CC}{%
+  C\nolinebreak[4]\hspace{-.05em}%
+  \raisebox{.4ex}{\relsize{-3}{\textbf{++}}}%
+}
 
 % information
 
@@ -27,9 +73,13 @@
 % body
 
 \begin{document}
+  \hypersetup{pageanchor=false}
+
   \input{pages/frontispiece}
 
   \input{pages/abstract}
+
+  \hypersetup{pageanchor=true}
 
   \input{sections/introduction}
 
