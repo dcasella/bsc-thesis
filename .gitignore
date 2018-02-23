@@ -1,20 +1,26 @@
-## Core latex/pdflatex auxiliary files:
+## Core latex/pdflatex auxiliary files
 *.aux
 *.log
 *.fls
 *.out
 *.toc
 
-## Bibliography auxiliary files:
+## Bibliography auxiliary files
 *.bbl
 *.blg
 
-## Build tool auxiliary files:
+## Build tool auxiliary files
 *.fdb_latexmk
 *.synctex.gz
 
-# Theorem files:
+# Theorem files
 *.thm
 
-## Generated pdf files:
+## Generated pdf files
 *.pdf
+
+# Package todonotes
+*.tdo
+
+## Reference directory
+refs/
