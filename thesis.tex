@@ -31,35 +31,50 @@
 \newtheorem{Definition}{Definition}
 
 \usepackage{xargs}
+
 \usepackage[pdftex,dvipsnames,hyperref]{xcolor}
-\definecolor{href_blue}{rgb}{.2,.56,1}
-\definecolor{todo_red}{rgb}{.9,.16,.1}
-\definecolor{todo_orange}{rgb}{.99,.59,.12}
-\definecolor{todo_yellow}{rgb}{.9,.86,.45}
-\usepackage[colorlinks,allcolors=href_blue]{hyperref}
+
+\definecolor{mnk_blue}{rgb}{.2,.56,1}
+\definecolor{mnk_red}{rgb}{.9,.16,.1}
+\definecolor{mnk_orange}{rgb}{.99,.59,.12}
+\definecolor{mnk_yellow}{rgb}{.9,.86,.45}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks,
+  urlcolor=mnk_blue,
+  citecolor=mnk_red,
+  filecolor=black,
+  linkcolor=black,
+  linktoc=page
+}
+
 \usepackage[
   colorinlistoftodos,
   prependcaption,
-  backgroundcolor=todo_yellow,
-  linecolor=todo_yellow,
+  backgroundcolor=mnk_yellow,
+  linecolor=mnk_yellow,
   textsize=tiny
 ]{todonotes}
+
 \newcommandx{\fix}[2][1=]{
   \todo[
-    backgroundcolor=todo_red,
-    linecolor=todo_red,
+    backgroundcolor=mnk_red,
+    linecolor=mnk_red,
     #1
   ]{#2}
 }
+
 \newcommandx{\wip}[2][1=]{
   \todo[
-    backgroundcolor=todo_orange,
-    linecolor=todo_orange,
+    backgroundcolor=mnk_orange,
+    linecolor=mnk_orange,
     #1
   ]{#2}
 }
 
 \usepackage{relsize}
+
 \newcommand{\CC}{%
   C\nolinebreak[4]\hspace{-.05em}%
   \raisebox{.4ex}{\relsize{-3}{\textbf{++}}}%
@@ -78,6 +93,15 @@
   \input{pages/frontispiece}
 
   \input{pages/abstract}
+
+  \tableofcontents
+  \thispagestyle{empty}
+
+  \pagebreak
+
+  \listoftodos          % temporary - delete
+  \thispagestyle{empty} % temporary - delete
+  \pagebreak            % temporary - delete
 
   \hypersetup{pageanchor=true}
 
