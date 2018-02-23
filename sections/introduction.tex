@@ -12,6 +12,38 @@
 
 \wip[inline]{Add biology PP matrix description}
 
+Each instance of a PPP is associated to a pair $(M, A)$.
+
+\fix{Sentence start} \dots formalizing input and output parameters for the Persistent Phylogeny problem (PPP) \cite{Bonizzoni2016SolvingTP}.
+
+\begin{Definition}[Persistent Phylogeny problem]\label{ppp}
+  \text{}
+
+  \textit{Input:} pair $(M, A)$ where $M$ is a $n \times m$ binary matrix over a set $m$ of characters and a set $n$ of species, and A is a subset of its characters.
+
+  \textit{Output:} tree $T$ solving $M$ if it exists.
+\end{Definition}
+
+${M_i}_j$ represents the connection between $s_i$ and $c_j$ \dots
+
 \subsubsection{Character states}
 
+Let us introduce the concept of \textit{active} characters.
+Active characters \wip{Go on} \dots
+
 \subsubsection{Red-black graph representation}
+
+A red-black graph for an instance of PPP is an undirected bipartite graph whose edges are colored as either red or black.
+
+\begin{Definition}[Red-black graph for PPP]\label{grb}
+  Let $S$ be a set of species vertices, $C$ a set of character vertices, $E$ a set of edges, $A$ a subset of character vertices (active characters).
+  Then $G_{RB}$ is defined as follows:
+
+  \[ G_{RB} = (S, C, E, A) \]
+
+  The vertex set of $G_{RB}$ is formally represented as two disjoint and independent sets $S$ and $C$.
+\end{Definition}
+
+\todo[inline]{GRB and T are in relation thanks to the c-reduction}
+
+A \textit{c-reduction} for a graph $G_{RB}$ is the sequence of operations that, when performed on an instance of PPP, clears the graph of all edges.
