@@ -2,11 +2,12 @@
 
 \section{Introduction}\label{sec:introduction}
 
-Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), is a recurring problem in Bioinformatics, mainly due to the complexity of the task. In fact, there exist multiple approaches to evolutionary history reconstruction; most of those approaches try to reduce the problem by limiting the state changes of characters. The Persistent Phylogeny model, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
+Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), is a recurring problem in Bioinformatics, mainly due to the complexity of the task. In fact, there exist multiple approaches to evolutionary history reconstruction; most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree. The Persistent Phylogeny model, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
 
 \subsection{Character evolution in Bioinformatics}\label{ssec:charevo}
 
 To study the state changes of characters in an evolutionary tree we can represent species and their characters as rows and columns of a matrix; each element of the matrix marks the specific state of a character for a species.
+
 We will consider the case in which all characters are binary, making them able to assume only one of two states, 0 or 1. For each species, the state of a character represents if the species has or doesn't have a given feature.
 
 \begin{definition}\label{def:m}
@@ -20,7 +21,7 @@ A matrix \m{} can then be represented as an undirected bipartite graph. The set 
 \begin{figure}[h]
   \input{figures/figure1}
 
-  \caption{An instance of a character-based phylogeny represented as matrix and graph}
+  \caption{An instance of a character-based phylogeny represented as matrix and graph $(\text{4 species} \times \text{4 characters})$}
   \label{fig:1}
 \end{figure}
 
