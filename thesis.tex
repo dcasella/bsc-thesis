@@ -12,42 +12,37 @@
 \usepackage{wrapfig}
 \usepackage{cite}
 \usepackage{indentfirst}
+\usepackage{subcaption}
 
-%% package and package-dependent commands
+%% packages and package-dependent commands
 
 \usepackage{graphicx}
 \graphicspath{{./images/}}
 
 \usepackage[thmmarks]{ntheorem}
-\theoremstyle{plain}
-\theoremheaderfont{\normalfont\bfseries}
+
 \theorembodyfont{\normalfont}
 \theoremseparator{.}
-\theorempreskip{\topsep}
-\theorempostskip{\topsep}
 \theoremindent0.5cm
 \theoremnumbering{arabic}
 \theoremsymbol{\ensuremath{\ast}}
-\newtheorem{Definition}{Definition}
+\newtheorem{definition}{Definition}
 
 \usepackage{xargs}
 
-\usepackage[pdftex,dvipsnames,hyperref]{xcolor}
+\usepackage[pdftex, dvipsnames, hyperref]{xcolor}
 
-\definecolor{mnk_blue}{rgb}{.2,.56,1}
-\definecolor{mnk_red}{rgb}{.9,.16,.1}
-\definecolor{mnk_orange}{rgb}{.99,.59,.12}
-\definecolor{mnk_yellow}{rgb}{.9,.86,.45}
+\definecolor{mnk_blue}{rgb}{.2, .56, 1}
+\definecolor{mnk_red}{rgb}{.9, .16, .1}
+\definecolor{mnk_orange}{rgb}{.99, .59, .12}
+\definecolor{mnk_yellow}{rgb}{.9, .86, .45}
 
-\usepackage{hyperref}
-\hypersetup{
-  colorlinks,
-  urlcolor=mnk_blue,
-  citecolor=mnk_red,
-  filecolor=black,
-  linkcolor=black,
-  linktoc=page
-}
+\makeatletter
+\usepackage[pdfusetitle]{hyperref}
+\hypersetup{colorlinks, urlcolor=mnk_blue, citecolor=black, filecolor=black,
+            linkcolor=black, linktoc=page,
+            pdfsubject={Algorithms on graphs; Persistent Phylogeny}}
+\makeatother
 
 \usepackage[
   colorinlistoftodos,
@@ -57,33 +52,36 @@
   textsize=tiny
 ]{todonotes}
 
-\newcommandx{\fix}[2][1=]{
-  \todo[
-    backgroundcolor=mnk_red,
-    linecolor=mnk_red,
-    #1
-  ]{#2}
+\newcommandx{\fix}[2][1=]{%
+  \todo[backgroundcolor=mnk_red, linecolor=mnk_red, #1]{#2}
 }
 
-\newcommandx{\wip}[2][1=]{
-  \todo[
-    backgroundcolor=mnk_orange,
-    linecolor=mnk_orange,
-    #1
-  ]{#2}
+\newcommandx{\wip}[2][1=]{%
+  \todo[backgroundcolor=mnk_orange, linecolor=mnk_orange, #1]{#2}
 }
+
+\usepackage{tikz}
 
 \usepackage{relsize}
 
-\newcommand{\CC}{%
+\newcommand*{\cc}{%
   C\nolinebreak[4]\hspace{-.05em}%
   \raisebox{.4ex}{\relsize{-3}{\textbf{++}}}%
 }
 
+\newcommandx*{\m}[2][1, 2]{\ensuremath{{M_{#1}}_{#2}}}
+\newcommand*{\ma}{\ensuremath{(M, A)}}
+
+\newcommand*{\species}[1][]{\ensuremath{s_{#1}}}
+\newcommand*{\character}[1][]{\ensuremath{c_{#1}}}
+
+\newcommand*{\g}{\ensuremath{G}}
+\newcommand*{\grb}{\ensuremath{G_{RB}}}
+
 % information
 
 \author{Davide Casella}
-\title{Efficient approaches to the Persistent Phylogeny}
+\title{Efficient algorithms to compute a Persistent Phylogeny}
 
 % body
 
@@ -104,6 +102,7 @@
   \pagebreak            % temporary - delete
 
   \hypersetup{pageanchor=true}
+  \setcounter{page}{1}
 
   \input{sections/introduction}
 
@@ -114,6 +113,8 @@
   \pagebreak % temporary - delete
 
   \input{sections/implementation}
+
+  \todo[inline]{Add section to talk about the performed tests}
 
   \pagebreak % temporary - delete
 
