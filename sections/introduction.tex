@@ -26,9 +26,7 @@ A matrix \m{} can then be represented as an undirected bipartite graph. The set 
 \end{figure}
 
 In the figure above (\ref{fig:1}) we have a set of species $S = \{ \species[0], \species[1], \species[2], \species[3] \}$ and a set of characters $C = \{ \character[0], \character[1], \character[2], \character[3] \}$.
-\fix{Reword?}
-While the set of edges $E$ stands for the \emph{current} state which each character is in (for each species), state changes can and will happen.
-For example, when a species \species[i] loses a character \character[j], its state will change from 1 to 0; this is shown in the matrix as a simple $\m[i][j] = 0$, or in the graph as the deletion of the edge \edge{\species[i]}{\character[j]}.
+Each element $\m[i][j] = 1$ of the matrix (\ref{fig:1:a}) is shown as the edge \edge{\species[i]}{\character[j]} in the corresponding graph (\ref{fig:1:b}).
 
 \subsubsection{Character states}\label{sssec:charstates}
 
