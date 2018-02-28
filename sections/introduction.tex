@@ -4,7 +4,7 @@
 
 \todo[inline]{Expand}
 
-Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), is a recurring problem in Bioinformatics, mainly due to the complexity of the task. In fact, there exist multiple approaches to evolutionary history reconstruction; most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree. The Persistent Phylogeny model, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
+Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), is a recurring problem in Bioinformatics \todo{Citation needed}, mainly due to the complexity of the task \todo{Citation needed}. In fact, there exist multiple approaches to evolutionary history reconstruction \todo{Citation needed}; most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree \cite{doi:10.1137/S0097539793244587} \todo{Citation needed}. The Persistent Phylogeny model \todo{Citation needed}, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
 
 \subsection{Character evolution in Bioinformatics}\label{ssec:charevo}
 
@@ -14,13 +14,15 @@ To study the state changes of characters in an evolutionary tree we can represen
 
 We will consider the case in which all characters are binary, making them able to assume only one of two states, 0 or 1. For each species, the state of a character represents if the species has or doesn't have a given feature.
 
+Binary phylogeny models have already been explored \todo{Citation needed} and \dots
+
 \begin{definition}\label{def:m}
   \m{} is a $n \times m$ binary matrix over a set $m$ of characters and a set $n$ of species.
 
   \m[i][j] represents the state of a character \character[j] for a species \species[i].
 \end{definition}
 
-A matrix \m{} can then be represented as an undirected bipartite graph. The set of vertices of the graph is $S \cup C$, where $S$ is the set of species and $C$ the set of characters.
+A matrix \m{} can then be represented as an undirected bipartite graph. The set of vertices of the graph is $V = S \cup C$, where $S$ is the set of species and $C$ the set of characters.
 
 \begin{figure}[h]
   \input{figures/figure1}
@@ -47,14 +49,16 @@ A character becomes active whenever it is gained in the tree.
 
 \wip[inline]{Expand}
 
-Each instance of a PPP is associated to a pair \ma{}.
+A Persistent Phylogeny can also be called Persistent Perfect Phylogeny (P-PP, or simply put, PPP), since its model is directly related to that of the Perfect Phylogeny.
 
-We now formalize input and output parameters for the Persistent Phylogeny problem (PPP) \cite{Bonizzoni2016SolvingTP}.
+Each instance of a PPP is associated to a pair \ma{}. \dots
+
+We now formalize input and output parameters for the Persistent Phylogeny problem \cite{Bonizzoni2016SolvingTP}.
 
 \begin{definition}[Persistent Phylogeny problem]\label{def:ppp}
   \text{}
 
-  \textit{Input:} pair \ma{} where \m{} is a $n \times m$ binary matrix over a set $m$ of characters and a set $n$ of species, and A is a subset of its characters.
+  \textit{Input:} pair \ma{} where \m{} is a $n \times m$ binary matrix over a set of $m$ characters and a set of $n$ species, and A is a subset of its characters.
 
   \textit{Output:} tree $T$ solving \m{} if it exists.
 \end{definition}
