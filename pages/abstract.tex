@@ -2,12 +2,12 @@
 
 \begin{abstract}
 
-  Recently it has become increasingly important to study character-based phylogeny models that allow for loss of characters.
-  For example, tumor phylogeny often involves the loss of previously acquired mutations following the deletion of entire genomic regions.
+  Recently, studying character-based phylogeny models allowing for loss of characters gained relevancy. E.g. in tumor phylogeny, the deletion of entire genomic regions often cause loss of (previously acquired) mutations.
 
-  The Persistent Phylogeny model solves this by generalizing the concept of Perfect Phylogeny, allowing for each character to be acquired and lost at most once in the evolutionary history.
+  The Persistent Phylogeny model solves this by generalizing the concept of Perfect Phylogeny, allowing for each character to be acquired and lost at most once during the evolutionary events.
 
-  The first polynomial time algorithm for reconstructing a Persistent Phylogeny tree starting from a binary matrix was introduced very recently.
-  In this thesis we describe the process behind the implementation of said algorithm, using the \cc{} language and Boost libraries.
+  We formalize and contextualize this problem, describing a recently introduced algorithm for reconstructing a Persistent Phylogeny tree starting from a binary matrix, the first solving this problem in polynomial time.
+
+  We then proceed to implement it using the \cc{} language and Boost libraries, complementing the study with tests on instances that do or don't admit a Persistent Phylogeny, and performance evalutation.
 
 \end{abstract}
