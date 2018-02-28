@@ -2,9 +2,13 @@
 
 \section{Introduction}\label{sec:introduction}
 
+\todo[inline]{Expand}
+
 Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), is a recurring problem in Bioinformatics, mainly due to the complexity of the task. In fact, there exist multiple approaches to evolutionary history reconstruction; most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree. The Persistent Phylogeny model, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
 
 \subsection{Character evolution in Bioinformatics}\label{ssec:charevo}
+
+\todo[inline]{Expand}
 
 To study the state changes of characters in an evolutionary tree we can represent species and their characters as rows and columns of a matrix; each element of the matrix marks the specific state of a character for a species.
 
@@ -30,19 +34,22 @@ Each element $\m[i][j] = 1$ of the matrix (\ref{fig:1:a}) is shown as the edge \
 
 \subsubsection{Character states}\label{sssec:charstates}
 
-\todo[inline]{Characters can be gained or lost}
+\todo[inline]{Expand}
 
-Let us introduce the concept of \textit{active} characters.
-Active characters \wip{Go on} \dots
+In a phylogenetic tree, characters can be acquired and lost; we will use the notation \character[][+] for acquired characters and \character[][-] for lost characters. Each \character[][+] and \character[][-] represents a \emph{signed} character.
+
+The Persistent Phylogeny model enables characters to be lost at most once in the evolutionary events, \fix{Reword?} which means we will need to keep track of the characters that were previously acquired. This is solved by introducing the concept of \emph{active} characters.
+
+Active characters are a subset of the instance's current set of characters $C = \{ \character[0], \dots, \character[m-1] \}$.
+A character becomes active whenever it is gained in the tree.
 
 \subsection{Persistent Phylogeny problem}\label{ssec:ppp}
 
-\wip[inline]{Add biology PP description \\
-             Add PP matrix description}
+\wip[inline]{Expand}
 
 Each instance of a PPP is associated to a pair \ma{}.
 
-\fix{Sentence start} \dots formalizing input and output parameters for the Persistent Phylogeny problem (PPP) \cite{Bonizzoni2016SolvingTP}.
+We now formalize input and output parameters for the Persistent Phylogeny problem (PPP) \cite{Bonizzoni2016SolvingTP}.
 
 \begin{definition}[Persistent Phylogeny problem]\label{def:ppp}
   \text{}
@@ -62,9 +69,11 @@ A red-black graph for an instance of PPP is an undirected bipartite graph whose 
 
   \[ \grb{} = (S, C, E, A) \]
 
-  The vertex set of \grb{} is formally represented as two disjoint and independent sets $S$ and $C$.
+  The vertex set $V$ of \grb{} is formally represented as two disjoint and independent sets $S$ and $C$.
+  %
+  % $V = S \cup C$, $S = \{ \species[0], \dots, \species[n-1] \}$, $C = \{ \character[0], \dots, \character[m-1] \}$, $E = \{ \edge{s}{c} : s \in S, c \in C \}$, $A = \{ c : c \in C, c \text{ active} \}$
 \end{definition}
 
 \todo[inline]{GRB and T are in relation thanks to the c-reduction}
 
-A \textit{c-reduction} for a graph \grb{} is the sequence of operations that, when performed on an instance of PPP, clears the graph of all edges.
+A \emph{c-reduction} for a graph \grb{} is the sequence of operations that, when performed on an instance of PPP, clears the graph of all edges.
