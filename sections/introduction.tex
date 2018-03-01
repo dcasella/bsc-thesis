@@ -4,7 +4,7 @@
 
 \todo[inline]{Expand}
 
-Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), is a recurring problem in Bioinformatics \todo{Citation needed}, mainly due to the complexity of the task \todo{Citation needed}. In fact, there exist multiple approaches to evolutionary history reconstruction \todo{Citation needed}; most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree \cite{doi:10.1137/S0097539793244587} \todo{Citation needed}. The Persistent Phylogeny model \todo{Citation needed}, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
+Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), is a recurring problem in Bioinformatics \todo{Citation needed}, mainly due to the complexity of the task \todo{Citation needed}. In fact, there exist multiple approaches to evolutionary history reconstruction \todo{Citation needed}; most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree \cite{PPptime1994} \todo{Citation needed}. The Persistent Phylogeny model \todo{Citation needed}, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
 
 \subsection{Character evolution in Bioinformatics}\label{ssec:charevo}
 
@@ -40,7 +40,7 @@ Each element $\m[i][j] = 1$ of the matrix (\ref{fig:1:a}) is shown as the edge \
 
 In a phylogenetic tree, characters can be acquired and lost; we will use the notation \character[][+] for acquired characters and \character[][-] for lost characters. Each \character[][+] and \character[][-] represents a \emph{signed} character.
 
-The Persistent Phylogeny model enables characters to be lost at most once in the evolutionary events, \fix{Reword?} which means we will need to keep track of the characters that were previously acquired. This is solved by introducing the concept of \emph{active} characters.
+The Persistent Phylogeny model enables characters to be lost at most once in the evolutionary events; we then need a way to keep track of the characters that were previously acquired. This is solved by introducing the concept of \emph{active} characters.
 
 Active characters are a subset of the instance's current set of characters $C = \{ \character[0], \dots, \character[m-1] \}$.
 A character becomes active whenever it is gained in the tree.
@@ -51,9 +51,9 @@ A character becomes active whenever it is gained in the tree.
 
 A Persistent Phylogeny can also be called Persistent Perfect Phylogeny (P-PP, or simply put, PPP), since its model is directly related to that of the Perfect Phylogeny.
 
-Each instance of a PPP is associated to a pair \ma{}. \dots
+Each instance of a PPP is associated to a pair \ma{} and a rooted tree $T$, where $T$ is a \emph{persistent phylogeny} for the pair \ma{}. \fix{Reword? Too many repetitions} If \ma{} admits a persistent phylogeny we then say that the matrix $M$ is solved by the tree $T$ \cite{PPPptime2016,PPPcgraph2016}.
 
-We now formalize input and output parameters for the Persistent Phylogeny problem \cite{Bonizzoni2016SolvingTP}.
+We now formalize input and output parameters for the Persistent Phylogeny problem \cite{PPPptime2016}.
 
 \begin{definition}[Persistent Phylogeny problem]\label{def:ppp}
   \text{}
@@ -68,14 +68,14 @@ We now formalize input and output parameters for the Persistent Phylogeny proble
 A red-black graph for an instance of PPP is an undirected bipartite graph whose edges are colored as either red or black.
 
 \begin{definition}[Red-black graph for PPP]\label{def:grb}
-  Let $S$ be a set of species vertices, $C$ a set of character vertices, $E$ a set of edges, $A$ a subset of character vertices (active characters).
+  Let $S$ be a set of species vertices, $C$ a set of character vertices, $B$ a set of black edges and $R$ a set of red edges.
   Then \grb{} is defined as follows:
 
-  \[ \grb{} = (S, C, E, A) \]
+  \[ \grb{} = (S \cup C, B \cup R) \]
 
   The vertex set $V$ of \grb{} is formally represented as two disjoint and independent sets $S$ and $C$.
-  %
-  % $V = S \cup C$, $S = \{ \species[0], \dots, \species[n-1] \}$, $C = \{ \character[0], \dots, \character[m-1] \}$, $E = \{ \edge{s}{c} : s \in S, c \in C \}$, $A = \{ c : c \in C, c \text{ active} \}$
+
+  The edge set $E$ of \grb{} is formally represented as two disjoint and independent sets $B$ and $R$.
 \end{definition}
 
 \todo[inline]{GRB and T are in relation thanks to the c-reduction}
