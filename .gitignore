@@ -1,3 +1,5 @@
+# LaTeX
+
 ## Core latex/pdflatex auxiliary files
 *.aux
 *.log
@@ -13,11 +15,11 @@
 *.fdb_latexmk
 *.synctex.gz
 
-# Theorem files
+## Theorem files
 *.thm
 
 ## Generated pdf files
 *.pdf
 
-# Package todonotes
+## Package todonotes
 *.tdo
