@@ -2,7 +2,10 @@
 
 \section{Algorithm explaination}\label{section:algorithm}
 
-\todo[inline]{Add pseudocode introduction}
+The polynomial-time algorithm introduced in \cite{PPPptime2016} describes a recursive procedure for reducing a red-black graph to an empty graph, if it admits a persistent phylogeny.
+The recursion can be stopped in one of two ways: by reaching an empty graph (\hyperref[algorithm:reduce:ifempty]{line 2}) or by reaching a graph that can't be reduced (\hyperref[algorithm:reduce:ifnosource]{line 14}).
+
+The procedure for a Reduce function is given below.
 
 \begin{algorithm}[h]\label{algorithm:reduce}
   \caption{Reduce. Recursive reduction of a red-black graph.}
@@ -19,7 +22,7 @@
 
   Remove singletons from \grb{}
 
-  \If{\grb{} is empty}{
+  \If{\grb{} is empty}{\label{algorithm:reduce:ifempty}
     \Return $\langle$ $\rangle$
   }
 
@@ -53,7 +56,7 @@
 
   \BlankLine
 
-  \If{\hasse{} has no safe source}{
+  \If{\hasse{} has no safe source}{\label{algorithm:reduce:ifnosource}
     Abort
   }
 
