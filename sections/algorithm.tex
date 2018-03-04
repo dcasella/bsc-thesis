@@ -2,7 +2,75 @@
 
 \section{Algorithm explaination}\label{section:algorithm}
 
-\todo[inline]{Pseudocode}
+\todo[inline]{Add pseudocode introduction}
+
+\begin{algorithm}[h]\label{algorithm:reduce}
+  \caption{Reduce. Recursive reduction of a red-black graph.}
+
+  \SetKwData{Source}{\ensuremath{s}}
+  \SetKwData{Sc}{\ensuremath{S_{c}}}
+  \SetKwInOut{Input}{Input}
+  \SetKwInOut{Output}{Output}
+
+  \Input{Red-black graph \grb{}}
+  \Output{c-reduction of the graph \grb{}, if it exists}
+
+  \BlankLine
+
+  Remove singletons from \grb{}
+
+  \If{\grb{} is empty}{
+    \Return $\langle$ $\rangle$
+  }
+
+  \BlankLine
+
+  \If{\grb{} has a free character \character{}}{
+    \grb{} $\gets$ Realize(\character[][-], \grb{})
+
+    \Return $\langle$ \character[][-], Reduce(\grb{}) $\rangle$
+  }
+
+  \BlankLine
+
+  \If{\grb{} has a universal character \character{}}{
+    \grb{} $\gets$ Realize(\character[][+], \grb{})
+
+    \Return $\langle$ \character[][+], Reduce(\grb{}) $\rangle$
+  }
+
+  \BlankLine
+
+  \If{\grb{} has k > 1 connected components}{
+    \Return $\langle$ Reduce($\grb{}_{0}$), \dots, Reduce($\grb{}_{k-1}$) $\rangle$
+  }
+
+  \BlankLine
+
+  \gm{} $\gets$ maximal reducible graph of \grb{}
+
+  \hasse{} $\gets$ Hasse diagram for \gm{}
+
+  \BlankLine
+
+  \If{\hasse{} has no safe source}{
+    Abort
+  }
+
+  \BlankLine
+
+  \Source $\gets$ Find-initial-state(\hasse{})
+
+  \Sc $\gets$ sequence of positive characters of \Source that are inactive in \grb{}
+
+  \grb{} $\gets$ Realize(\Sc, \grb{})
+
+  \BlankLine
+
+  \Return $\langle$ \Sc, Reduce(\grb{}) $\rangle$
+\end{algorithm}
+
+\todo[inline]{Add other functions' pseudocode?}
 
 \subsection{Preparing the graph}\label{section:preparing-the-graph}
 
