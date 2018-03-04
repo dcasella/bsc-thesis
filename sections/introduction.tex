@@ -4,7 +4,7 @@
 
 \todo[inline]{Expand}
 
-Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), is a recurring problem in Bioinformatics \todo{Citation needed}, mainly due to the complexity of the task \todo{Citation needed}. In fact, there exist multiple approaches to evolutionary history reconstruction \todo{Citation needed}; most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree \cite{PPptime1994} \todo{Citation needed}. The Persistent Phylogeny model \todo{Citation needed}, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
+Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), \todo{Citation needed} is a recurring problem in Bioinformatics, mainly due to the complexity of the task. In fact, \todo{Citation needed} there exist multiple approaches to evolutionary history reconstruction; \todo{Citation needed} most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree \cite{PPptime1994}. \todo{Citation needed} The Persistent Phylogeny model, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
 
 \subsection{Character evolution in Bioinformatics}\label{section:character-evolution}
 
@@ -14,7 +14,8 @@ To study the state changes of characters in an evolutionary tree we can represen
 
 We will consider the case in which all characters are binary, making them able to assume only one of two states, 0 or 1. For each species, the state of a character represents if the species has or doesn't have a given feature.
 
-Binary phylogeny models have already been explored \todo{Citation needed} and \dots
+\todo{Citation needed} Binary phylogeny models have already been explored and \dots
+\wip[inline]{Continue}
 
 \begin{definition}\label{definition:m}
   \m{} is a $n \times m$ binary matrix over a set $m$ of characters and a set $n$ of species.
@@ -79,6 +80,63 @@ A red-black graph for an instance of PPP is an undirected bipartite graph whose 
   The edge set $E$ of \grb{} is formally represented as two disjoint and independent sets $B$ and $R$.
 \end{definition}
 
-\todo[inline]{GRB and T are in relation thanks to the c-reduction}
+The set of characters adjacent to a species \species{} is denoted as $C(\species{})$. Conversely, we use $S(\character{})$ to indicate the set of species adjacent to a character \character{}.
 
-A \emph{c-reduction} for a graph \grb{} is the sequence of operations that, when performed on an instance of PPP, clears the graph of all edges.
+A character \character{} is \emph{inactive} in \grb{} if all of its incident edges are black. Conversely, \character{} is \emph{active} in \grb{} if all of its incident edges are red.
+
+A character \character{} is \emph{universal} in \grb{} if it's inactive and its set $S(\character{})$ is made up of all the species in the connected component that contains \character{}. Moreover, \character{} is \emph{free} in \grb{} if it's active and $S(\character{})$ is made up of all the species in the connected component that contains \character{}.
+
+We say that a red-black graph \grb{} is solved by a tree $T$ if $T$ is a persisteny phylogeny for the graph. Moreover, the construction of a tree $T$ can be expressed as a series of graph operations performed on the red-black graph.
+This sequence of operations is called \emph{c-reduction}; a c-reduction is then called \emph{successful c-reduction} if, when applied to a red-black graph that admits a persistent phylogeny, results in an empty graph.
+
+Each graph operation in a c-reduction, represented as a signed character, is called a \emph{realization}.
+
+\begin{definition}[Realization]\label{definition:realization}
+  Let \grb{} be a red-black graph and \character{} a character of \grb{}.
+  Let $Conn(\character{})$ be the set of species of \grb{} in the connected component that contains \character{}.
+
+  The realization of \character[][+] on \grb{}, which is feasible only if \character{} is inactive, involves adding red edges between \character{} and each species in $Conn(\character{}) \setminus S(\character{})$ and deleting all black edges incident on \character{}.
+
+  The realization of \character[][-] on \grb{}, which is feasible only if \character{} is active and there is no species in $Conn(\character{}) \setminus S(\character{})$ (i.e., \character{} is free), involves deleting all (red) edges incident on \character{}.
+
+  After a realization is performed on \grb{}, all isolated vertices of \grb{} may be deleted.
+\end{definition}
+
+The realization of a species \species{} is defined as the realization of each character in $C(\species{})$ in any order.
+
+The notion of c-reduction was first introduced in \cite{PPPbin2012} and is defined as a sequence of positive characters \character[][+]. A c-reduction $R$ is \emph{feasible} for \grb{} if the realization of each signed character in $R$ is feasible for the current state \fix{Reword?} \grb{} is in, and every time a character \character[i] becomes free the realization of \character[i][-] is applied \cite{PPPcgraph2016}.
+
+A c-reduction $\langle \character[0][\pm], \dots, \character[k][\pm] \rangle$ (where $0$ and $k$ represent the indexes of the signed characters in the sequence) applied to \grb{} produces a graph \grb[k], which represents the state of \grb{} after the realization of the characters from \character[0][\pm] to \character[k][\pm].
+The realization of \character[0][\pm] on \grb{} produces \grb[0], while for indexes $i > 0$ each \grb[i] is generated from the realization of \character[i][\pm] applied on \grb[i-1].
+
+We provide an example for a c-reduction being applied to a red-black graph in \hyperref[figure:3]{Figure 3}.
+
+\paragraph{Red \boldmath{\sg{}}s}
+
+For a c-reduction to be successful, the graphs \grb[i] induced by the realization of each signed character \character[i][\pm] must not contain a red \sg{}.
+
+We provide some graphical examples of red \sg{}s below.
+
+\begin{figure}[h]
+  \input{figures/figure2}
+
+  \caption{Examples of red \sg{}s}\label{figure:2}
+\end{figure}
+
+We observe in the figure above (\ref{figure:2:a} and \ref{figure:2:c} in particular) that none of the characters are free in \grb{}, making the realization of any \character[i][-] impossible; then, the graph can't be emptied by a c-reduction.
+
+\begin{definition}[Red \sg{}]\label{definition:sigma-graph}
+  Let \grb{} be a red-black graph, \character[0] \character[1] two active characters of \grb{} and \species[0] \species[1] \species[2] three species of \grb{}.
+
+  \grb{} contains a red \sg{} if there exists a (red) path $\species[0], \character[0], \species[1], \character[1], \species[2]$ of length 4, and the edges \edge{\character[0]}{\species[2]} and \edge{\character[1]}{\species[0]} do not exist.
+\end{definition}
+
+A c-reduction $R$ is successful if, when applied to a red-black graph \grb{}, the graphs \grb[i] induced by the realization of each signed character \character[i][\pm] of $R$ does not contain a red \sg{}.
+
+A red-black graph consisting of \textit{k} connected components has a successful reduction $R$ if and only if each component has a successful reduction $R_{i}$ (with $1 < i < k$). Then $R$ consists of any concatenation of the \textit{k} sequences $R_{i}$ \cite{PPPptime2016}.
+
+\begin{figure}[H]
+  \input{figures/figure3}
+
+  \caption{Application of a c-reduction $R = \langle \character[3][+], \character[1][+], \character[2][+], \character[3][-], \character[0][+], \character[1][-], \character[2][-] \rangle$ to a red-black graph \grb{}}\label{figure:3}
+\end{figure}

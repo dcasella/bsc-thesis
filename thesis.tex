@@ -10,13 +10,16 @@
 \usepackage{amssymb}
 \usepackage{setspace}
 \usepackage{wrapfig}
+\usepackage{xargs}
 \usepackage{cite}
 \usepackage{indentfirst}
-\usepackage{subcaption}
+\usepackage{float}
+\usepackage[algoruled,linesnumbered,noend]{algorithm2e}
 
 %% packages and package-dependent commands
 
 \usepackage{graphicx}
+
 \graphicspath{{./images/}}
 
 \usepackage[thmmarks]{ntheorem}
@@ -28,8 +31,6 @@
 \theoremsymbol{\ensuremath{\ast}}
 \newtheorem{definition}{Definition}
 
-\usepackage{xargs}
-
 \usepackage[pdftex, dvipsnames, hyperref]{xcolor}
 
 \definecolor{mnk_blue}{rgb}{.2, .56, 1}
@@ -39,6 +40,7 @@
 
 \makeatletter
 \usepackage[pdfusetitle]{hyperref}
+
 \hypersetup{colorlinks, urlcolor=mnk_blue, citecolor=black, filecolor=black,
             linkcolor=black, linktoc=page,
             pdfsubject={Algorithms on graphs; Persistent Phylogeny}}
@@ -60,6 +62,12 @@
   \todo[backgroundcolor=mnk_orange, linecolor=mnk_orange, #1]{#2}
 }
 
+\usepackage{subcaption}
+
+\captionsetup[figure]{
+  format=hang
+}
+
 \usepackage{tikz}
 
 \usepackage{relsize}
@@ -76,8 +84,13 @@
 \newcommandx*{\character}[2][1, 2]{\ensuremath{c_{#1}^{#2}}}
 
 \newcommand*{\g}{\ensuremath{G}}
-\newcommand*{\grb}{\ensuremath{G_{RB}}}
+\newcommand*{\grb}[1][]{\ensuremath{G_{RB}^{#1}}}
 \newcommand*{\edge}[2]{\ensuremath{(#1, #2)}}
+\newcommand*{\sg}{\ensuremath{\Sigma}-graph}
+\newcommand*{\cm}{\ensuremath{C_{M}}}
+\newcommand*{\grbcm}{\ensuremath{\grb{}|\cm{}}}
+\newcommand*{\gm}{\ensuremath{G_{M}}}
+\newcommand*{\hasse}{\ensuremath{{\cal P}}}
 
 % information
 
