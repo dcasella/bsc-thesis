@@ -3,7 +3,7 @@
 \section{Algorithm explaination}\label{section:algorithm}
 
 The polynomial-time algorithm introduced in \cite{PPPptime2016} describes a recursive procedure for reducing a red-black graph to an empty graph, if it admits a persistent phylogeny.
-The recursion can be stopped in one of two ways: by reaching an empty graph (\hyperref[algorithm:reduce:ifempty]{line 2}) or by reaching a graph that can't be reduced (\hyperref[algorithm:reduce:ifnosource]{line 14}).
+The recursion stops either when the base case is reached - empty graph (line \ref{algorithm:reduce:ifempty}) - or when the algorithm can't compute a successful c-reduction for \grb{} - the graph reaches a state of irreducibility (line \ref{algorithm:reduce:ifnosource}).
 
 The procedure for a Reduce function is given below.
 
@@ -20,60 +20,105 @@ The procedure for a Reduce function is given below.
 
   \BlankLine
 
-  Remove singletons from \grb{}
+  Remove singletons from \grb{}\;
 
   \If{\grb{} is empty}{\label{algorithm:reduce:ifempty}
-    \Return $\langle$ $\rangle$
+    \Return $\langle$ $\rangle$\;
   }
 
   \BlankLine
 
   \If{\grb{} has a free character \character{}}{
-    \grb{} $\gets$ Realize(\character[][-], \grb{})
+    \grb{} $\gets$ Realize(\character[][-], \grb{})\;
 
-    \Return $\langle$ \character[][-], Reduce(\grb{}) $\rangle$
+    \Return $\langle$ \character[][-], Reduce(\grb{}) $\rangle$\;
   }
 
   \BlankLine
 
   \If{\grb{} has a universal character \character{}}{
-    \grb{} $\gets$ Realize(\character[][+], \grb{})
+    \grb{} $\gets$ Realize(\character[][+], \grb{})\;
 
-    \Return $\langle$ \character[][+], Reduce(\grb{}) $\rangle$
+    \Return $\langle$ \character[][+], Reduce(\grb{}) $\rangle$\;
   }
 
   \BlankLine
 
   \If{\grb{} has k > 1 connected components}{
-    \Return $\langle$ Reduce($\grb{}_{0}$), \dots, Reduce($\grb{}_{k-1}$) $\rangle$
+    \Return $\langle$ Reduce($\grb{}_{0}$), \dots, Reduce($\grb{}_{k-1}$) $\rangle$\;
   }
 
   \BlankLine
 
-  \gm{} $\gets$ maximal reducible graph of \grb{}
+  \gm{} $\gets$ maximal reducible graph of \grb{}\;
 
-  \hasse{} $\gets$ Hasse diagram for \gm{}
+  \hasse{} $\gets$ Hasse diagram for \gm{}\;
 
   \BlankLine
 
   \If{\hasse{} has no safe source}{\label{algorithm:reduce:ifnosource}
-    Abort
+    Abort\;
   }
 
   \BlankLine
 
-  \Source $\gets$ Find-initial-state(\hasse{})
+  \Source $\gets$ Find-initial-state(\hasse{})\;
 
-  \Sc $\gets$ sequence of positive characters of \Source that are inactive in \grb{}
+  \Sc $\gets$ sequence of positive characters of \Source that are inactive in \grb{}\;
 
-  \grb{} $\gets$ Realize(\Sc, \grb{})
+  \grb{} $\gets$ Realize(\Sc, \grb{})\;
 
   \BlankLine
 
-  \Return $\langle$ \Sc, Reduce(\grb{}) $\rangle$
+  \Return $\langle$ \Sc, Reduce(\grb{}) $\rangle$\;
 \end{algorithm}
 
-\todo[inline]{Add other functions' pseudocode?}
+The Reduce procedure computes signed character realizations with the support of a Realize function, which follows the definition of Realization (\ref{definition:realization}) quite literally. \fix{Reword} We still describe the procedure for the Realize function.
+
+\pagebreak % temporary - delete
+
+\begin{algorithm}[h]\label{algorithm:realize}
+  \caption{Realize. Realization of a list of signed characters in a red-black graph.}
+
+  \SetKwData{Lc}{\ensuremath{L_{c}}}
+  \SetKwData{Con}{\ensuremath{Conn(\character{})}}
+  \SetKwData{Adj}{\ensuremath{S(\character{})}}
+  \SetKwInOut{Input}{Input}
+  \SetKwInOut{Output}{Output}
+
+  \Input{List of signed characters \Lc of \grb{}}
+  \Input{Red-black graph \grb{}}
+  \Output{Red-black graph \grb{} after the realization of \Lc, if feasible}
+
+  \BlankLine
+
+  \ForEach{\character[][\pm] $\in$ \Lc}{
+    \Con $\gets$ species in the connected component that contains \character{}\;
+    \Adj $\gets$ species adjacent to \character{}\;
+
+    \BlankLine
+
+    \If{\character[][+] is inactive}{
+      Add red edges between \character{} and each species in $\Con \setminus \Adj$\;
+
+      Delete black edges incident on \character{}\;
+    }
+    \ElseIf{\character[][-] is active}{
+      Delete edges incident on \character{}\;
+    }
+    \Else{
+      Abort\;
+    }
+  }
+
+  \BlankLine
+
+  \Return \grb{}\;
+\end{algorithm}
+
+Notice that a realization may alter the connected components of the red-black graph; we then need to recompute (or update) the connected component of a character \character[][\pm] before its realization.
+
+We will address the Find-initial-state procedure in detail in section \ref{section:safe-chains-sources}.
 
 \subsection{Preparing the graph}\label{section:preparing-the-graph}
 
