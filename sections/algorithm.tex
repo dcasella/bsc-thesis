@@ -7,8 +7,8 @@ The recursion stops either when the base case is reached - empty graph (line \re
 
 The procedure for a Reduce function is given below.
 
-\begin{algorithm}[h]\label{algorithm:reduce}
-  \caption{Reduce. Recursive reduction of a red-black graph.}
+\begin{algorithm}[h]
+  \caption{Reduce. Recursive reduction of a red-black graph.}\label{algorithm:reduce}
 
   \SetKwData{Source}{\ensuremath{s}}
   \SetKwData{Sc}{\ensuremath{S_{c}}}
@@ -20,7 +20,7 @@ The procedure for a Reduce function is given below.
 
   \BlankLine
 
-  Remove singletons from \grb{}\;
+  Remove singletons from \grb{}\;\label{algorithm:reduce:rmsingle}
 
   \If{\grb{} is empty}{\label{algorithm:reduce:ifempty}
     \Return $\langle$ $\rangle$\;
@@ -28,7 +28,7 @@ The procedure for a Reduce function is given below.
 
   \BlankLine
 
-  \If{\grb{} has a free character \character{}}{
+  \If{\grb{} has a free character \character{}}{\label{algorithm:reduce:iffree}
     \grb{} $\gets$ Realize(\character[][-], \grb{})\;
 
     \Return $\langle$ \character[][-], Reduce(\grb{}) $\rangle$\;
@@ -36,7 +36,7 @@ The procedure for a Reduce function is given below.
 
   \BlankLine
 
-  \If{\grb{} has a universal character \character{}}{
+  \If{\grb{} has a universal character \character{}}{\label{algorithm:reduce:ifuniversal}
     \grb{} $\gets$ Realize(\character[][+], \grb{})\;
 
     \Return $\langle$ \character[][+], Reduce(\grb{}) $\rangle$\;
@@ -44,7 +44,7 @@ The procedure for a Reduce function is given below.
 
   \BlankLine
 
-  \If{\grb{} has k > 1 connected components}{
+  \If{\grb{} has k > 1 connected components}{\label{algorithm:reduce:ifdisconnected}
     \Return $\langle$ Reduce($\grb{}_{0}$), \dots, Reduce($\grb{}_{k-1}$) $\rangle$\;
   }
 
@@ -77,8 +77,8 @@ The Reduce procedure computes signed character realizations with the support of 
 
 \pagebreak % temporary - delete
 
-\begin{algorithm}[h]\label{algorithm:realize}
-  \caption{Realize. Realization of a list of signed characters in a red-black graph.}
+\begin{algorithm}[h]
+  \caption{Realize. Realization of a list of signed characters in a red-black graph.}\label{algorithm:realize}
 
   \SetKwData{Lc}{\ensuremath{L_{c}}}
   \SetKwData{Con}{\ensuremath{Conn(\character{})}}
@@ -118,9 +118,18 @@ The Reduce procedure computes signed character realizations with the support of 
 
 Notice that a realization may alter the connected components of the red-black graph; we then need to recompute (or update) the connected component of a character \character[][\pm] before its realization.
 
+To ensure that a character external to $L_{c}$ gets realized whenever possible, the procedure can be extended by adding checks for free and universal characters after each realization.
+
+Finally, a step that removes singletons from the red-black graph can be implemented right before the \textbf{return} statement.
+
 We will address the Find-initial-state procedure in detail in section \ref{section:safe-chains-sources}.
 
 \subsection{Preparing the graph}\label{section:preparing-the-graph}
+
+An explaination of lines \ref{algorithm:reduce:rmsingle} to \ref{algorithm:reduce:ifdisconnected} has already been provided in section \ref{section:grb}.
+
+The first steps of the Reduce procedure (algorithm \ref{algorithm:reduce}) serve the purpose of bringing the red-black graph to a state which can't be "pruned" further.
+Removing isolated vertices (singletons), realizing free and universal characters, and reducing each connected component of \grb{} separately is all part of preparing the graph for a more thorough analysis.
 
 \subsection{Maximal reducible graph and Hasse diagram}\label{section:gm-hassediagram}
 
