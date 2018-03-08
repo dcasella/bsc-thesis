@@ -73,54 +73,7 @@ The procedure for a Reduce function is given below.
   \Return $\langle$ \Sc, Reduce(\grb{}) $\rangle$\;
 \end{algorithm}
 
-The Reduce procedure computes signed character realizations with the support of a Realize function, which follows the definition of Realization (\ref{definition:realization}) and extends it to support a list of signed characters as input. We describe the procedure for the Realize function.
-
-\pagebreak % temporary - delete
-
-\begin{algorithm}[h]
-  \caption{Realize. Realization of a list of signed characters in a red-black graph.}\label{algorithm:realize}
-
-  \SetKwData{Lc}{\ensuremath{L_{c}}}
-  \SetKwData{Con}{\ensuremath{Conn(\character{})}}
-  \SetKwData{Adj}{\ensuremath{S(\character{})}}
-  \SetKwInOut{Input}{Input}
-  \SetKwInOut{Output}{Output}
-
-  \Input{List of signed characters \Lc of \grb{}}
-  \Input{Red-black graph \grb{}}
-  \Output{Red-black graph \grb{} after the realization of \Lc, if feasible}
-
-  \BlankLine
-
-  \ForEach{\character[][\pm] $\in$ \Lc}{
-    \Con $\gets$ species in the connected component that contains \character{}\;
-    \Adj $\gets$ species adjacent to \character{}\;
-
-    \BlankLine
-
-    \If{\character[][+] is inactive}{
-      Add red edges between \character{} and each species in $\Con \setminus \Adj$\;
-
-      Delete black edges incident on \character{}\;
-    }
-    \ElseIf{\character[][-] is active}{
-      Delete edges incident on \character{}\;
-    }
-    \Else{
-      Abort\;
-    }
-  }
-
-  \BlankLine
-
-  \Return \grb{}\;
-\end{algorithm}
-
-Notice that a realization may alter the connected components of the red-black graph; we then need to recompute (or update) the connected component of a character \character[][\pm] before its realization.
-
-To ensure that a character external to $L_{c}$ gets realized whenever possible, the procedure can be extended by adding checks for free and universal characters after each realization.
-
-Finally, a step that removes singletons from the red-black graph can be implemented right before the \textbf{return} statement.
+The Reduce procedure computes signed character realizations with the support of a Realize function, which follows the definition of Realization (\ref{definition:realization}) and extends it to support a list of signed characters as input.
 
 We will address the Find-initial-state procedure in detail in section \ref{section:safe-chains-sources}.
 
