@@ -4,15 +4,16 @@
   \begin{subfigure}[b]{0.98\textwidth}
     \centering
       \begin{tikzpicture}
-        \tikzstyle{every node}=[circle, draw]
-        \foreach \i in {0, 1, 2}
-        {
-          \path (\i*40pt, 80pt) node (s\i) {$s_{\i}$};
-        }
+        {\tikzstyle{every node}=[circle, draw]
+          \foreach \i in {0, 1, 2}
+          {
+            \node (s\i) at (\i*40pt, 80pt) {\species[\i]};
+          }
 
-        \foreach \j in {0, 1}
-        {
-          \path (\j*40pt+20pt, 0) node (c\j) {$c_{\j}$};
+          \foreach \j in {0, 1}
+          {
+            \node (c\j) at (\j*40pt+20pt, 0) {\character[\j]};
+          }
         }
 
         \draw [red]
@@ -30,15 +31,16 @@
   \begin{subfigure}[b]{0.98\textwidth}
     \centering
       \begin{tikzpicture}
-        \tikzstyle{every node}=[circle, draw]
-        \foreach \i in {0, ..., 2}
-        {
-          \path (\i*40pt, 80pt) node (s\i) {$s_{\i}$};
-        }
+        {\tikzstyle{every node}=[circle, draw]
+          \foreach \i in {0, ..., 2}
+          {
+            \node (s\i) at (\i*40pt, 80pt) {\species[\i]};
+          }
 
-        \foreach \j in {0, ..., 3}
-        {
-          \path (\j*40pt-20pt, 0) node (c\j) {$c_{\j}$};
+          \foreach \j in {0, ..., 3}
+          {
+            \node (c\j) at (\j*40pt-20pt, 0) {\character[\j]};
+          }
         }
 
         \draw
@@ -62,15 +64,16 @@
   \begin{subfigure}[b]{0.98\textwidth}
     \centering
       \begin{tikzpicture}
-        \tikzstyle{every node}=[circle, draw]
-        \foreach \i in {0, ..., 2}
-        {
-          \path (\i*40pt, 80pt) node (s\i) {$s_{\i}$};
-        }
+        {\tikzstyle{every node}=[circle, draw]
+          \foreach \i in {0, ..., 2}
+          {
+            \node (s\i) at (\i*40pt, 80pt) {\species[\i]};
+          }
 
-        \foreach \j in {0, ..., 3}
-        {
-          \path (\j*40pt-20pt, 0) node (c\j) {$c_{\j}$};
+          \foreach \j in {0, ..., 3}
+          {
+            \node (c\j) at (\j*40pt-20pt, 0) {\character[\j]};
+          }
         }
 
         \draw [red]
