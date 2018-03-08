@@ -98,6 +98,26 @@ The set of maximal characters of \grb{} is then used to build a maximal reducibl
   \gm{} consists of the subgraph of \grb{} that has the characters in \cm{} and the species of \grb{} adjacent to \cm{}.
 \end{definition}
 
-\todo[inline]{Hasse diagram}
+To be able to compute a successful c-reduction for a graph \grb{} we need to represent the set of species of its maximal reducible graph \gm{} as a Hasse diagram \cite{PPPptime2016}.
+The Hasse diagram is used to represent partially ordered sets (poset), defined as $(P_{s}, \leq)$, where each element of $P_{s}$ is a vertex in the diagram and there exists an edge from a vertex $a$ to $b$ if and only if $a < b$ and there doesn't exist a vertex $c$ such that $a < c < b$.
+
+The definition of Hasse diagram translates in our algorithm as a directed acyclic graph, where the vertices of $P_{s}$ are made up of the species of \gm{}.
+
+\begin{definition}[Hasse diagram for \grbcm{}]\label{definition:hasse-diagram}
+  Let \gm{} be a maximal reducible graph.
+
+  The Hasse diagram \hasse{} for \gm{} is the Hasse diagram for the poset $(P_{s}, \leq)$ of the species of \gm{} ordered by the relation $\leq$.
+  Two species \species[1] and \species[2] of $P_{s}$ are in a relation $\species[1] \leq \species[2]$ if $C(\species[1]) \subseteq C(\species[2])$
+\end{definition}
+
+Each vertex of a Hasse diagram \hasse{} consists of a set of species which share the same characters, while each edge \edge{v_{i}}{v_{i+1}} of the diagram is labeled by the set of positive characters that are in $v_{i+1}$ and not in $v_{i}$. When a character \character{} "is in" a vertex $v_{i}$, it means that all the species that label $v_{i}$ have the character \character{} in their set $C(\species{})$.
+
+We show an example of maximal reducible graph and its corresponding Hasse diagram.
+
+\begin{figure}[h]
+  \input{figures/figure4}
+
+  \caption{Graph \gm{} and its Hasse diagram \hasse{}}\label{figure:4}
+\end{figure}
 
 \subsection{Safe chains and sources}\label{section:safe-chains-sources}
