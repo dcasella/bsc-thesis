@@ -73,7 +73,7 @@ The procedure for a Reduce function is given below.
   \Return $\langle$ \Sc, Reduce(\grb{}) $\rangle$\;
 \end{algorithm}
 
-The Reduce procedure computes signed character realizations with the support of a Realize function, which follows the definition of Realization (\ref{definition:realization}) quite literally. \fix{Reword} We still describe the procedure for the Realize function.
+The Reduce procedure computes signed character realizations with the support of a Realize function, which follows the definition of Realization (\ref{definition:realization}) and extends it to support a list of signed characters as input. We describe the procedure for the Realize function.
 
 \pagebreak % temporary - delete
 
@@ -132,5 +132,19 @@ The first steps of the Reduce procedure (algorithm \ref{algorithm:reduce}) serve
 Removing isolated vertices (singletons), realizing free and universal characters, and reducing each connected component of \grb{} separately is all part of preparing the graph for a more thorough analysis.
 
 \subsection{Maximal reducible graph and Hasse diagram}\label{section:gm-hassediagram}
+
+Let us introduce the concept of \emph{maximal} character. A character \character{} is maximal in a red-black graph \grb{} if $S(\character{}) \not\subset S(\character[i])$ for each inactive character \character[i] of \grb{}. Two maximal characters \character[0] and \character[1] can overlap, i.e., share common species, but clearly they can't be included in one another. Moreover, to clarify what we just described, we say that a character \character[0] includes another character \character[1] if $S(\character[0]) \supseteq S(\character[1])$.
+
+The set of maximal characters of \grb{} is then used to build a maximal reducible graph \grbcm{} from it.
+
+\begin{definition}[Maximal reducible graph]\label{definition:maximal-reducible-graph}
+  Let \grb{} be a red-black graph and \cm{} its set of maximal characters.
+
+  The maximal reducible graph \grbcm{}, \gm{} for short, is the red-black graph induced in \grb{} by the set \cm{} of characters.
+
+  \gm{} consists of the subgraph of \grb{} that has the characters in \cm{} and the species of \grb{} adjacent to \cm{}.
+\end{definition}
+
+\todo[inline]{Hasse diagram}
 
 \subsection{Safe chains and sources}\label{section:safe-chains-sources}
