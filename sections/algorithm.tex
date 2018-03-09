@@ -54,6 +54,8 @@ The procedure for a Reduce function is given below.
 
   \hasse{} $\gets$ Hasse diagram for \gm{}\;
 
+  \Source $\gets$ Find-initial-state(\hasse{})\;
+
   \BlankLine
 
   \If{\hasse{} has no safe source}{\label{algorithm:reduce:ifnosource}
@@ -61,8 +63,6 @@ The procedure for a Reduce function is given below.
   }
 
   \BlankLine
-
-  \Source $\gets$ Find-initial-state(\hasse{})\;
 
   \Sc $\gets$ sequence of positive characters of \Source that are inactive in \grb{}\;
 
