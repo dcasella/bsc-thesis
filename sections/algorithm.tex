@@ -121,3 +121,94 @@ We show an example of maximal reducible graph and its corresponding Hasse diagra
 \end{figure}
 
 \subsection{Safe chains and sources}\label{section:safe-chains-sources}
+
+The algorithm operates on the Hasse diagram to find a \emph{safe source}, which is a necessary and sufficient condition for computing the \emph{initial state} of a tree $T_{A}$ solving the subgraph $\grbcm{} \cup A$.
+
+Find-initial-state is the procedure for finding a safe source of a Hasse diagram.
+
+A source in the diagram, i.e., a vertex of indegree 0, can be tested to be a safe source if and only if it's the source of a chain deemed to be safe. Moreover, we define a chain as a directed path from source to sink (vertex of outdegree 0).
+
+To define the process to test if a chain is safe, we first need to introduce the concept of c-reduction of a chain. We say that the c-reduction of a chain $C = < v_{0}, \edge{v_{0}}{v_{1}}, v_{1}, \dots, \edge{v_{k-1}}{v_{k}}, v_{k} >$ of a diagram \hasse{} for \gm{}, alternating vertices and edges in the path, is the sequence of characters of $v_{0}$ ($C$'s source) and those labeling the edges \edge{v_{i}}{v_{i+1}} for $0 \leq i < k$.
+
+\begin{definition}[Safe chain of a Hasse diagram]\label{definition:safe-chain}
+  Let \hasse{} be a Hasse diagram for a graph \gm{}.
+  Let $C$ be a chain of \hasse{}.
+
+  A chain $C$ is safe in \hasse{} if its c-reduction applied to the graph \gm{} is feasible and the resulting graph doesn't include red \sg{}s.
+\end{definition}
+
+Then, the source $s$ of a safe chain can be subjected to the test for safe source if and only if its realization (i.e., the realization of the positive characters of $s$) on the graph \grb{} is feasible and the resulting graph doesn't include red \sg{}s.
+
+Before listing the tests to be performed on a "realizable" source, let us premise that we worked, over the course of the project, on implementing a decent subset of the safe source tests.
+The tests subset we implemented operates on graphs that have been reduced to maximal (\grbcm{}) right away; which means the first graph \grb[0] will have only maximal characters.
+The development of the remaining conditions to support minimal characters is currently in progress.
+
+At last, we describe, in algorithmic form, the conditions for which a source can be considered safe.
+
+\begin{algorithm}[hp]
+  \caption{Find-initial-state. Select the safe source of a Hasse diagram, if it exists.}\label{algorithm:find-initial-state}
+
+  \SetKw{Continue}{continue}
+  \SetKwData{Source}{\ensuremath{source}}
+  \SetKwData{SourceSpecies}{\ensuremath{s}}
+  \SetKwInOut{Input}{Input}
+  \SetKwInOut{Output}{Output}
+
+  \Input{Hasse diagram \hasse{} for \grbcm{}}
+  \Output{Safe source of \hasse{}, if it exists}
+
+  \BlankLine
+
+  \ForEach{safe chain of \hasse{}}{
+    \Source $\gets$ the source of the chain\;
+    \SourceSpecies $\gets$ a species in \Source\;
+
+    \BlankLine
+
+    \If{the realization of \SourceSpecies in \grb{} is not feasible or it induces red \sg{}s}{
+      \Continue\;
+    }
+
+    \BlankLine
+
+    \If{there exists a species $\SourceSpecies'$ in $\grbcm{} \cup A$ that consists of $C(\SourceSpecies)$ and is connected to only inactive characters}{
+      \Return \Source\;
+    }
+
+    \BlankLine
+
+    Add \Source to the list of feasible sources\;
+  }
+
+  \BlankLine
+
+  \ForEach{\Source $\in$ list of feasible sources}{
+    \SourceSpecies $\gets$ a species in \Source\;
+
+    \BlankLine
+
+    \If{there exists a species $\SourceSpecies'$ in $\grbcm{} \cup A$ that consists of $C(\SourceSpecies)$ + other maximal characters and is connected to only inactive characters}{
+      \Return \Source\;
+    }
+  }
+
+  \BlankLine
+
+  \ForEach{\Source $\in$ list of feasible sources}{
+    \SourceSpecies $\gets$ a species in \Source\;
+
+    \BlankLine
+
+    \If{there doesn't exist a species $\SourceSpecies'$ in $\grbcm{} \cup A$ that consists of $C(\SourceSpecies)$ + other active characters}{
+      Abort\;
+    }
+  }
+
+  \BlankLine
+
+  \Source $\gets$ source having a species $\SourceSpecies$ which is connected to the least number of active characters\;
+
+  \BlankLine
+
+  \Return \Source\;
+\end{algorithm}
