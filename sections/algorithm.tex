@@ -114,7 +114,7 @@ Each vertex of a Hasse diagram \hasse{} consists of a set of species which share
 
 We show an example of maximal reducible graph and its corresponding Hasse diagram.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \input{figures/figure4}
 
   \caption{Graph \gm{} and its Hasse diagram \hasse{}}\label{figure:4}
@@ -131,7 +131,7 @@ A source in the diagram, i.e., a vertex of indegree 0, can be tested to be a saf
 To define the process to test if a chain is safe, we first need to introduce the concept of c-reduction of a chain. We say that the c-reduction of a chain $C = < v_{0}, \edge{v_{0}}{v_{1}}, v_{1}, \dots, \edge{v_{k-1}}{v_{k}}, v_{k} >$ of a diagram \hasse{} for \gm{}, alternating vertices and edges in the path, is the sequence of characters of $v_{0}$ ($C$'s source) and those labeling the edges \edge{v_{i}}{v_{i+1}} for $0 \leq i < k$.
 
 \begin{definition}[Safe chain of a Hasse diagram]\label{definition:safe-chain}
-  Let \hasse{} be a Hasse diagram for a graph \gm{}.
+  Let \hasse{} be the Hasse diagram for a graph \gm{}.
   Let $C$ be a chain of \hasse{}.
 
   A chain $C$ is safe in \hasse{} if its c-reduction applied to the graph \gm{} is feasible and the resulting graph doesn't include red \sg{}s.
@@ -212,3 +212,5 @@ At last, we describe, in algorithmic form, the conditions for which a source can
 
   \Return \Source\;
 \end{algorithm}
+
+\pagebreak

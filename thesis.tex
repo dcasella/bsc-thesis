@@ -5,9 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+\usepackage{amsmath, amsfonts, amssymb}
 \usepackage{setspace}
 \usepackage{wrapfig}
 \usepackage{xargs}
@@ -17,6 +15,14 @@
 \usepackage[algoruled,linesnumbered,noend]{algorithm2e}
 
 %% packages and package-dependent commands
+
+\usepackage[lighttt]{lmodern}
+
+\ttfamily
+\DeclareFontShape{T1}{lmtt}{m}{it}
+  {<->ssub*lmtt/m/sl}{}
+\DeclareFontShape{T1}{lmtt}{bx}{it}
+  {<->ssub*lmtt/b/sl}{}
 
 \usepackage{graphicx}
 
@@ -33,17 +39,24 @@
 
 \usepackage[pdftex, dvipsnames, hyperref]{xcolor}
 
-\definecolor{mnk_blue}{rgb}{.2, .56, 1}
-\definecolor{mnk_red}{rgb}{.9, .16, .1}
-\definecolor{mnk_orange}{rgb}{.99, .59, .12}
-\definecolor{mnk_yellow}{rgb}{.9, .86, .45}
+\definecolor{mnk_black}{HTML}{1c1c1c}
+\definecolor{mnk_white}{HTML}{cccccc}
+\definecolor{mnk_gray}{HTML}{696d70}
+\definecolor{mnk_red}{HTML}{e62a19}
+\definecolor{mnk_green}{HTML}{2be98a}
+\definecolor{mnk_yellow}{HTML}{e6db74}
+\definecolor{mnk_blue}{HTML}{328eff}
+\definecolor{mnk_magenta}{HTML}{f92672}
+\definecolor{mnk_cyan}{HTML}{49e0fd}
+\definecolor{mnk_orange}{HTML}{fd971f}
+\definecolor{mnk_purple}{HTML}{ae81ff}
 
 \makeatletter
-\usepackage[pdfusetitle]{hyperref}
+  \usepackage[pdfusetitle]{hyperref}
 
-\hypersetup{colorlinks, urlcolor=mnk_blue, citecolor=black, filecolor=black,
-            linkcolor=black, linktoc=page,
-            pdfsubject={Algorithms on graphs; Persistent Phylogeny}}
+  \hypersetup{colorlinks, urlcolor=mnk_blue, citecolor=black, filecolor=black,
+              linkcolor=black, linktoc=page,
+              pdfsubject={Algorithms on graphs; Persistent Phylogeny}}
 \makeatother
 
 \usepackage[
