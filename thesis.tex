@@ -12,6 +12,8 @@
 \usepackage{cite}
 \usepackage{indentfirst}
 \usepackage{float}
+\usepackage{nth}
+\usepackage{enumitem}
 \usepackage[algoruled,linesnumbered,noend]{algorithm2e}
 
 %% packages and package-dependent commands
@@ -87,6 +89,81 @@
 }
 
 \usepackage{tikz}
+
+\usepackage{listings, lstautogobble}
+
+\lstdefinestyle{code_block}{
+  aboveskip=\bigskipamount,
+  belowskip=\medskipamount,
+  xleftmargin=\parindent,
+  breaklines,
+  frame=single,
+  framesep=0pt,
+  framexleftmargin=4pt,
+  framextopmargin=4pt,
+  framexrightmargin=4pt,
+  framexbottommargin=4pt,
+  framerule=0.5pt,
+  autogobble=true,
+  numbers=none,
+  fillcolor=\color{block_fill},
+  rulecolor=\color{block_rule},
+  backgroundcolor=\color{block_bg},
+  basicstyle=\ttfamily\footnotesize\color{block_fg},
+  language=bash,
+  mathescape,
+  alsoletter={:},
+  otherkeywords={
+    boost::adjacency_list, boost::print_graph,
+    remove_vertex_if, if_singleton,
+    std::map, getopt,
+    ppp, bin, OPTION..., FILE...,
+    check_reduction.py, globals.hpp, main.cpp,
+    -h, --help,
+    -v, --verbose,
+    -t, --testpy,
+    -x, --exponential,
+    -i, --interactive,
+    -m, --maximal,
+    -n, --nthsource
+  }
+}
+
+\lstdefinestyle{c++_block}{
+  aboveskip=\bigskipamount,
+  belowskip=\medskipamount,
+  xleftmargin=2.02\parindent,
+  breaklines,
+  frame=single,
+  framesep=0pt,
+  framexleftmargin=4pt,
+  framextopmargin=4pt,
+  framexrightmargin=4pt,
+  framexbottommargin=4pt,
+  framerule=0.5pt,
+  frameshape={y}{ynnnnnny}{y}{y},
+  autogobble=true,
+  numbers=left,
+  numberstyle=\ttfamily\bfseries\scriptsize\color{mnk_gray},
+  fillcolor=\color{block_fill},
+  rulecolor=\color{block_rule},
+  backgroundcolor=\color{block_bg},
+  basicstyle=\ttfamily\bfseries\footnotesize\color{block_fg},
+  language=c++,
+  mathescape,
+  commentstyle=\itshape\color{mnk_gray},
+  stringstyle=\color{mnk_yellow},
+  keywordstyle=\color{mnk_magenta},
+  alsoletter={:},
+  emph={int, bool, size_t, std::string},
+  emphstyle=\color{gh_blue},
+  emphstyle=[2]\color{gh_purple},
+  otherkeywords={+, -, &, *},
+}
+
+\lstset{style=code_block}
+
+\lstMakeShortInline[columns=fixed]!
 
 \usepackage{relsize}
 
