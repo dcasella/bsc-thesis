@@ -142,13 +142,13 @@ To define the process to test if a chain is safe, we first need to introduce the
 Then, the source $s$ of a safe chain can be subjected to the test for safe source if and only if its realization (i.e., the realization of the positive characters of $s$) on the graph \grb{} is feasible and the resulting graph doesn't include red \sg{}s.
 
 Before listing the tests to be performed on a "realizable" source, let us premise that we worked, over the course of the project, on implementing a decent subset of the safe source tests.
-The tests subset we implemented operates on graphs that have been reduced to maximal (\grbcm{}) right away; which means the first graph \grb[0] will have only maximal characters.
+The tests subset we implemented operates on graphs that have been reduced to maximal (\grbcm{}) right away; which means the first graph \grb{} will have only maximal characters.
 The development of the remaining conditions to support minimal characters is currently in progress.
 
 At last, we describe, in algorithmic form, the conditions for which a source can be considered safe.
 
 \begin{algorithm}[hp]
-  \caption{Find-initial-state. Select the safe source of a Hasse diagram, if it exists.}\label{algorithm:find-initial-state}
+  \caption{Find-initial-state. Select a safe source of a Hasse diagram, if it exists.}\label{algorithm:find-initial-state}
 
   \SetKw{Continue}{continue}
   \SetKwData{Source}{\ensuremath{source}}
@@ -173,7 +173,7 @@ At last, we describe, in algorithmic form, the conditions for which a source can
 
     \BlankLine
 
-    \If{there exists a species $\SourceSpecies'$ in $\grbcm{} \cup A$ that consists of $C(\SourceSpecies)$ and is connected to only inactive characters}{
+    \If{there exists a species $\SourceSpecies'$ in $\grbcm{} \cup A$ that consists of $C(\SourceSpecies)$ and is connected to only inactive characters}{\label{algorithm:find-initial-state:test1}
       \Return \Source\;
     }
 
@@ -189,7 +189,7 @@ At last, we describe, in algorithmic form, the conditions for which a source can
 
     \BlankLine
 
-    \If{there exists a species $\SourceSpecies'$ in $\grbcm{} \cup A$ that consists of $C(\SourceSpecies)$ + other maximal characters and is connected to only inactive characters}{
+    \If{there exists a species $\SourceSpecies'$ in $\grbcm{} \cup A$ that consists of $C(\SourceSpecies)$ + other maximal characters and is connected to only inactive characters}{\label{algorithm:find-initial-state:test2}
       \Return \Source\;
     }
   }
@@ -201,14 +201,14 @@ At last, we describe, in algorithmic form, the conditions for which a source can
 
     \BlankLine
 
-    \If{there doesn't exist a species $\SourceSpecies'$ in $\grbcm{} \cup A$ that consists of $C(\SourceSpecies)$ + other active characters}{
+    \If{there doesn't exist a species $\SourceSpecies'$ in $\grbcm{} \cup A$ that consists of $C(\SourceSpecies)$ + other active characters}{\label{algorithm:find-initial-state:test3}
       Abort\;
     }
   }
 
   \BlankLine
 
-  \Source $\gets$ source having a species $\SourceSpecies$ which is connected to the least number of active characters\;
+  \Source $\gets$ source having a species $\SourceSpecies$ whose realization frees all of its adjacent active characters\;
 
   \BlankLine
 
