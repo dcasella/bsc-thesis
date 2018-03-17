@@ -45,17 +45,22 @@
 \definecolor{mnk_red}{HTML}{e62a19}
 \definecolor{mnk_green}{HTML}{2be98a}
 \definecolor{mnk_yellow}{HTML}{e6db74}
-\definecolor{mnk_blue}{HTML}{328eff}
 \definecolor{mnk_magenta}{HTML}{f92672}
-\definecolor{mnk_cyan}{HTML}{49e0fd}
 \definecolor{mnk_orange}{HTML}{fd971f}
-\definecolor{mnk_purple}{HTML}{ae81ff}
+
+\definecolor{gh_blue}{HTML}{005cc5}
+\definecolor{gh_purple}{HTML}{6f42c1}
+
+\definecolor{block_fg}{HTML}{24292e}
+\definecolor{block_bg}{HTML}{f6f8fa}
+\definecolor{block_fill}{HTML}{e9ebed}
+\definecolor{block_rule}{HTML}{dcdee0}
 
 \makeatletter
   \usepackage[pdfusetitle]{hyperref}
 
-  \hypersetup{colorlinks, urlcolor=mnk_blue, citecolor=black, filecolor=black,
-              linkcolor=black, linktoc=page,
+  \hypersetup{urlbordercolor=gh_blue, citebordercolor=mnk_green,
+              linkbordercolor=white, linktoc=all,
               pdfsubject={Algorithms on graphs; Persistent Phylogeny}}
 \makeatother
 
@@ -135,13 +140,7 @@
 
   \input{sections/algorithm}
 
-  \pagebreak % temporary - delete
-
   \input{sections/implementation}
-
-  \todo[inline]{Add section to talk about the performed tests}
-
-  \pagebreak % temporary - delete
 
   \input{sections/conclusions}
 
