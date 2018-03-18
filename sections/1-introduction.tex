@@ -2,20 +2,19 @@
 
 \section{Introduction}\label{section:introduction}
 
-\todo[inline]{Expand}
-
-Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), \todo{Citation needed} is a recurring problem in Bioinformatics, mainly due to the complexity of the task. In fact, \todo{Citation needed} there exist multiple approaches to evolutionary history reconstruction; \todo{Citation needed} most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree \cite{PPptime1994}. \todo{Citation needed} The Persistent Phylogeny model, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
+Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), is a recurring problem in Bioinformatics.
+However, these problems are still not easily solvable \cite{DPQ2011}.
+In fact, there exist multiple approaches to evolutionary history reconstruction \cite{SD2003, MPL2004, BI2001}; most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree \cite{CS1990, PPptime1994}.
+The Persistent Phylogeny model \cite{PPPbin2012, PPPcgraph2016, PPPptime2016}, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
 
 \subsection{Character evolution in Bioinformatics}\label{section:character-evolution}
 
-\todo[inline]{Expand}
-
 To study the state changes of characters in an evolutionary tree we can represent species and their characters as rows and columns of a matrix; each element of the matrix marks the specific state of a character for a species.
 
-We will consider the case in which all characters are binary, making them able to assume only one of two states, 0 or 1. For each species, the state of a character represents if the species has or doesn't have a given feature.
+We will consider the case in which all characters are binary, making them able to assume only one of two states, 0 or 1.
+For each species, the state of a character represents if the species has or doesn't have a given feature.
 
-\todo{Citation needed} Binary phylogeny models have already been explored and \dots
-\wip[inline]{Continue}
+Binary phylogeny models have already been explored \cite{PPPbin2012, NPP2007, IDPP2004} and used to produce computationally efficient algorithms.
 
 \begin{definition}\label{definition:m}
   \m{} is a $n \times m$ binary matrix over a set $m$ of characters and a set $n$ of species.
@@ -23,7 +22,8 @@ We will consider the case in which all characters are binary, making them able t
   \m[i][j] represents the state of a character \character[j] for a species \species[i].
 \end{definition}
 
-A matrix \m{} can then be represented as an undirected bipartite graph. The set of vertices of the graph is $V = S \cup C$, where $S$ is the set of species and $C$ the set of characters.
+A matrix \m{} can then be represented as an undirected bipartite graph.
+The set of vertices of the graph is $V = S \cup C$, where $S$ is the set of species and $C$ the set of characters.
 
 \begin{figure}[h]
   \input{figures/figure1}
@@ -36,22 +36,20 @@ Each element $\m[i][j] = 1$ of the matrix (\ref{figure:1:a}) is shown as the edg
 
 \subsubsection{Character states}\label{section:character-states}
 
-\todo[inline]{Expand}
+In a phylogenetic tree, characters can be acquired and lost; we will use the notation \character[][+] for acquired characters and \character[][-] for lost characters.
+Each \character[][+] and \character[][-] represents a \emph{signed} character.
 
-In a phylogenetic tree, characters can be acquired and lost; we will use the notation \character[][+] for acquired characters and \character[][-] for lost characters. Each \character[][+] and \character[][-] represents a \emph{signed} character.
-
-The Persistent Phylogeny model enables characters to be lost at most once in the evolutionary events; we then need a way to keep track of the characters that were previously acquired. This is solved by introducing the concept of \todo{Citation needed?} \emph{active} characters.
+The Persistent Phylogeny model enables characters to be lost at most once in the evolutionary events; we then need a way to keep track of the characters that were previously acquired.
+This is solved by introducing the concept of \emph{active} characters \cite{PPPbin2012, PPPcgraph2016, PPPptime2016}.
 
 Active characters are a subset of the instance's current set of characters $C = \{ \character[0], \dots, \character[m-1] \}$.
 A character becomes active whenever it is gained in the tree.
 
 \subsection{Persistent Phylogeny problem}\label{section:ppp}
 
-\wip[inline]{Expand}
-
 A Persistent Phylogeny can also be called Persistent Perfect Phylogeny (P-PP, or simply put, PPP), since its model is directly related to that of the Perfect Phylogeny.
 
-Each instance of a PPP is associated to a pair \ma{} and a rooted tree $T$, where $T$ is a \emph{persistent phylogeny} for the pair \ma{}. \fix{Reword? Too many repetitions} If \ma{} admits a persistent phylogeny we then say that the matrix $M$ is solved by the tree $T$ \cite{PPPptime2016,PPPcgraph2016}.
+Each instance of a PPP is associated to a pair \ma{} and a rooted tree $T$, where $T$ is a \emph{persistent phylogeny} for the pair \ma{}.
 
 We now formalize input and output parameters for the Persistent Phylogeny problem \cite{PPPptime2016}.
 
@@ -63,7 +61,7 @@ We now formalize input and output parameters for the Persistent Phylogeny proble
   \textit{Output:} tree $T$ solving \m{} if it exists.
 \end{definition}
 
-\todo[inline]{Add more?}
+If \ma{} admits a persistent phylogeny we then say that the matrix $M$ is solved by the tree $T$ \cite{PPPptime2016,PPPcgraph2016}.
 
 \subsubsection{Red-black graph representation}\label{section:grb}
 
@@ -80,13 +78,17 @@ A red-black graph for an instance of PPP is an undirected bipartite graph whose 
   The edge set $E$ of \grb{} is formally represented as two disjoint and independent sets $B$ and $R$.
 \end{definition}
 
-The set of characters adjacent to a species \species{} is denoted as $C(\species{})$. Conversely, we use $S(\character{})$ to indicate the set of species adjacent to a character \character{}.
+The set of characters adjacent to a species \species{} is denoted as $C(\species{})$.
+Conversely, we use $S(\character{})$ to indicate the set of species adjacent to a character \character{}.
 
-A character \character{} is \emph{inactive} in \grb{} if all of its incident edges are black. Conversely, \character{} is \emph{active} in \grb{} if all of its incident edges are red.
+A character \character{} is \emph{inactive} in \grb{} if all of its incident edges are black.
+Conversely, \character{} is \emph{active} in \grb{} if all of its incident edges are red.
 
-A character \character{} is \emph{universal} in \grb{} if it's inactive and its set $S(\character{})$ is made up of all the species in the connected component that contains \character{}. Moreover, \character{} is \emph{free} in \grb{} if it's active and $S(\character{})$ is made up of all the species in the connected component that contains \character{}.
+A character \character{} is \emph{universal} in \grb{} if it's inactive and its set $S(\character{})$ is made up of all the species in the connected component that contains \character{}.
+Moreover, \character{} is \emph{free} in \grb{} if it's active and $S(\character{})$ is made up of all the species in the connected component that contains \character{}.
 
-We say that a red-black graph \grb{} is solved by a tree $T$ if $T$ is a persisteny phylogeny for the graph. Moreover, the construction of a tree $T$ can be expressed as a series of graph operations performed on the red-black graph.
+We say that a red-black graph \grb{} is solved by a tree $T$ if $T$ is a persisteny phylogeny for the graph.
+Moreover, the construction of a tree $T$ can be expressed as a series of graph operations performed on the red-black graph.
 This sequence of operations is called \emph{c-reduction}; a c-reduction is then called \emph{successful c-reduction} if, when applied to a red-black graph that admits a persistent phylogeny, results in an empty graph.
 
 Each graph operation in a c-reduction, represented as a signed character, is called a \emph{realization}.
@@ -104,7 +106,8 @@ Each graph operation in a c-reduction, represented as a signed character, is cal
 
 The realization of a species \species{} is defined as the realization of each character in $C(\species{})$ in any order.
 
-The notion of c-reduction was first introduced in \cite{PPPbin2012} and is defined as a sequence of positive characters \character[][+]. A c-reduction $R$ is \emph{feasible} for \grb{} if the realization of each signed character in $R$ is feasible for the current state \fix{Reword?} \grb{} is in, and every time a character \character[i] becomes free the realization of \character[i][-] is applied \cite{PPPcgraph2016}.
+The notion of c-reduction was first introduced in \cite{PPPbin2012} and is defined as a sequence of positive characters \character[][+].
+A c-reduction $R$ is \emph{feasible} for \grb{} if the realization of each signed character in $R$ is feasible for the current \grb{}, and the realization of \character[i][-] is applied whenever a character \character[i] becomes free \cite{PPPcgraph2016}.
 
 A c-reduction $\langle \character[0][\pm], \dots, \character[k][\pm] \rangle$ (where $0$ and $k$ represent the indexes of the signed characters in the sequence) applied to \grb{} produces a graph \grb[k], which represents the state of \grb{} after the realization of the characters from \character[0][\pm] to \character[k][\pm].
 The realization of \character[0][\pm] on \grb{} produces \grb[0], while for indexes $i > 0$ each \grb[i] is generated from the realization of \character[i][\pm] applied on \grb[i-1].
@@ -133,7 +136,8 @@ We observe in the figure above (\ref{figure:2:a} and \ref{figure:2:c} in particu
 
 A c-reduction $R$ is successful if, when applied to a red-black graph \grb{}, the graphs \grb[i] induced by the realization of each signed character \character[i][\pm] of $R$ does not contain a red \sg{}.
 
-A red-black graph consisting of \textit{k} connected components has a successful reduction $R$ if and only if each component has a successful reduction $R_{i}$ (with $1 < i < k$). Then $R$ consists of any concatenation of the \textit{k} sequences $R_{i}$ \cite{PPPptime2016}.
+A red-black graph consisting of \textit{k} connected components has a successful reduction $R$ if and only if each component has a successful reduction $R_{i}$ (with $1 < i < k$).
+Then $R$ consists of any concatenation of the \textit{k} sequences $R_{i}$ \cite{PPPptime2016}.
 
 \begin{figure}[hp]
   \input{figures/figure3}
