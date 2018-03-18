@@ -88,7 +88,10 @@ Removing isolated vertices (singletons), realizing free and universal characters
 
 \subsection{Maximal reducible graph and Hasse diagram}\label{section:gm-hassediagram}
 
-Let us introduce the concept of \emph{maximal} character. A character \character{} is maximal in a red-black graph \grb{} if $S(\character{}) \not\subset S(\character[i])$ for each inactive character \character[i] of \grb{}. Two maximal characters \character[0] and \character[1] can overlap, i.e., share common species, but clearly they can't be included in one another. Moreover, to clarify what we just described, we say that a character \character[0] includes another character \character[1] if $S(\character[0]) \supseteq S(\character[1])$.
+Let us introduce the concept of \emph{maximal} character.
+A character \character{} is maximal in a red-black graph \grb{} if $S(\character{}) \not\subset S(\character[i])$ for each inactive character \character[i] of \grb{}.
+Two maximal characters \character[0] and \character[1] can overlap, i.e., share common species, but clearly they can't be included in one another.
+Moreover, to clarify what we just described, we say that a character \character[0] includes another character \character[1] if $S(\character[0]) \supseteq S(\character[1])$.
 
 The set of maximal characters of \grb{} is then used to build a maximal reducible graph \grbcm{} from it.
 
@@ -112,7 +115,8 @@ The definition of Hasse diagram translates in our algorithm as a directed acycli
   Two species \species[1] and \species[2] of $P_{s}$ are in a relation $\species[1] \leq \species[2]$ if $C(\species[1]) \subseteq C(\species[2])$
 \end{definition}
 
-Each vertex of a Hasse diagram \hasse{} consists of a set of species which share the same characters, while each edge \edge{v_{i}}{v_{i+1}} of the diagram is labeled by the set of positive characters that are in $v_{i+1}$ and not in $v_{i}$. When a character \character{} "is in" a vertex $v_{i}$, it means that all the species that label $v_{i}$ have the character \character{} in their set $C(\species{})$.
+Each vertex of a Hasse diagram \hasse{} consists of a set of species which share the same characters, while each edge \edge{v_{i}}{v_{i+1}} of the diagram is labeled by the set of positive characters that are in $v_{i+1}$ and not in $v_{i}$.
+When a character \character{} "is in" a vertex $v_{i}$, it means that all the species that label $v_{i}$ have the character \character{} in their set $C(\species{})$.
 
 We show an example of maximal reducible graph and its corresponding Hasse diagram.
 
@@ -128,9 +132,11 @@ The algorithm operates on the Hasse diagram to find a \emph{safe source}, which 
 
 Find-initial-state is the procedure for finding a safe source of a Hasse diagram.
 
-A source in the diagram, i.e., a vertex of indegree 0, can be tested to be a safe source if and only if it's the source of a chain deemed to be safe. Moreover, we define a chain as a directed path from source to sink (vertex of outdegree 0).
+A source in the diagram, i.e., a vertex of indegree 0, can be tested to be a safe source if and only if it's the source of a chain deemed to be safe.
+Moreover, we define a chain as a directed path from source to sink (vertex of outdegree 0).
 
-To define the process to test if a chain is safe, we first need to introduce the concept of c-reduction of a chain. We say that the c-reduction of a chain $C = < v_{0}, \edge{v_{0}}{v_{1}}, v_{1}, \dots, \edge{v_{k-1}}{v_{k}}, v_{k} >$ of a diagram \hasse{} for \gm{}, alternating vertices and edges in the path, is the sequence of characters of $v_{0}$ ($C$'s source) and those labeling the edges \edge{v_{i}}{v_{i+1}} for $0 \leq i < k$.
+To define the process to test if a chain is safe, we first need to introduce the concept of c-reduction of a chain.
+We say that the c-reduction of a chain $C = < v_{0}, \edge{v_{0}}{v_{1}}, v_{1}, \dots, \edge{v_{k-1}}{v_{k}}, v_{k} >$ of a diagram \hasse{} for \gm{}, alternating vertices and edges in the path, is the sequence of characters of $v_{0}$ ($C$'s source) and those labeling the edges \edge{v_{i}}{v_{i+1}} for $0 \leq i < k$.
 
 \begin{definition}[Safe chain of a Hasse diagram]\label{definition:safe-chain}
   Let \hasse{} be the Hasse diagram for a graph \gm{}.

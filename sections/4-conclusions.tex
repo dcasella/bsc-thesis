@@ -63,7 +63,7 @@ Moreover, we verified that the algorithm is able to compute a successful c-reduc
 
 Testing the functionality of the program on instances with only a limited set of maximal characters doesn't reflect its use-case, even if it's not complete.
 
-We show that applying the algorithm to a set of 2016 "Ok" instances without selecting the Maximal option produces a reasonable amount of correct results (approx. 90\%).
+We show that applying the algorithm to a set of 2016 "Ok" instances without selecting the Maximal option produces a reasonable amount of correct results (approximately 90\%).
 
 \begin{lstlisting}
   $\$$ bin/ppp tests/input/ok_??_* | grep -c No
@@ -79,7 +79,8 @@ While adding the Exponential option to the executed command produces the followi
 
 From these results we can see that testing every possible safe source is sure to produce better results; this is because we have yet to implement a subset of conditions to work with minimal characters in the graph.
 
-The algorithm, while being structured to produce a persistent phylogeny tree $T$, fails correctly when the tree $T$ doesn't exist. We can test this by applying it to the 4031 No instances of the dataset.
+The algorithm, while being structured to produce a persistent phylogeny tree $T$, fails correctly when the tree $T$ doesn't exist.
+We can test this by applying it to the 4031 No instances of the dataset.
 
 \begin{lstlisting}[belowskip=0pt]
   $\$$ bin/ppp tests/input/no_* | grep -c Ok
@@ -89,10 +90,12 @@ The algorithm, while being structured to produce a persistent phylogeny tree $T$
 \subsection{Implementation improvements}\label{section:impl-improvements}
 
 The current implementation of signed characters and Hasse diagram sees the use of vertex names as the parameter that can uniquely identify a vertex in a series of red-black graphs (\grb{} and \gm{}).
-Recently, we came across the idea of assigning to each vertex an index which, in the initial graph \grb{}, would represent the possible position of each vertex in a vector. This way, we can combine the stabiity of !boost::slistS! as the underlying structure of the vertices, while being able to address directly and in constant-time each vertex across graph and vertex copies.
+Recently, we came across the idea of assigning to each vertex an index which, in the initial graph \grb{}, would represent the possible position of each vertex in a vector.
+This way, we can combine the stabiity of !boost::slistS! as the underlying structure of the vertices, while being able to address directly and in constant-time each vertex across graph and vertex copies.
 This change would make it possible to use a simple !std::map! mapping vertex indexes to vertex descriptors in each graph (instead of the bidirectional map) and it would simplify a multitude of functions by not having to work with specifically constructed strings.
 
-The correctness of the computation of the chains in a Hasse diagram must be certain. As described in section \ref{section:initial-state}, this is not quite confirmed.
+The correctness of the computation of the chains in a Hasse diagram must be certain.
+As described in section \ref{section:initial-state}, this is not quite confirmed.
 A simple DFS visit may not be the most optimal solution \textendash{} while being a reasonable choice of algorithm.
 Implementing an altered version of the DFS visit, with its focus being finding the chains starting from a fixed source, could solve the problems we have with the current state of the implementation.
 
@@ -105,4 +108,6 @@ A possible approach to solve this is by calculating the connected components of 
 
 \subsection{Further development}\label{section:further-dev}
 
-We introduced the algorithm (\ref{algorithm:find-initial-state}) for computing an initial state of a non degenerate tree $T$ solving \grb{}. However, in section \ref{section:safe-chains-sources}, we explain that in its current form the algorithm doesn't support the presence of minimal characters in the original graph \grb{}. We plan to extend our implementation by adding support for minimal characters, consequently introducing conditions that will either further limit some of the checks already in place, or extend the algorithm in a non restraining way.
+We introduced the algorithm (\ref{algorithm:find-initial-state}) for computing an initial state of a non degenerate tree $T$ solving \grb{}.
+However, in section \ref{section:safe-chains-sources}, we explain that in its current form the algorithm doesn't support the presence of minimal characters in the original graph \grb{}.
+We plan to extend our implementation by adding support for minimal characters, consequently introducing conditions that will either further limit some of the checks already in place, or extend the algorithm in a non restraining way.

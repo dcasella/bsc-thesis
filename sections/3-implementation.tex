@@ -27,7 +27,8 @@ The Boost libraries provide generic implementations for concepts and abstraction
 
 \todo[inline]{Talk about CXX11 ABI?}
 
-By default, GCC compiles with no optimization ($-O0$), however, Boost advises the use of the $-O2$ or $-O3$ flags. We couldn't notice any problem with compiler optimizations, so we chose $-O3$ as the default flag.
+By default, GCC compiles with no optimization ($-O0$), however, Boost advises the use of the $-O2$ or $-O3$ flags.
+We couldn't notice any problem with compiler optimizations, so we chose $-O3$ as the default flag.
 
 Benchmarking goes a long way to show how much optimization flags influence the performance of our program.
 
@@ -79,13 +80,16 @@ This helped us identify false positives and pinpoint errors in our implementatio
 \subsection{Program options}\label{section:program-options}
 
 The software we built supports the use of a set of command-line arguments mainly focused around development testing and debugging.
-The program calculates a successful c-reduction for the matrix(ces) in the input FILE(s), if it exists. Usage:
+The program calculates a successful c-reduction for the matrix(ces) in the input FILE(s), if it exists.
+Usage:
 
 \begin{lstlisting}
   ppp [OPTION...] FILE...
 \end{lstlisting}
 
-!OPTION...! is the (optional) list of options given to the program. !--help! stops the execution.
+!OPTION...! is the (optional) list of options given to the program.
+!--help! stops the execution.
+
 !FILE...! is the list of files given in input; each file must be structured as such:
 
 \begin{itemize}
@@ -127,7 +131,8 @@ Display the program usage, description and options.
 Print information on the operations performed by the program at runtime.
 
 We declare global namespaced variables in a file !globals.hpp!; including the variable introduced in the snippet above.
-Variables declared in this file are used throughout the other files. Variables that are not included in our description, however, are only used in the main function of the program, which resides in !main.cpp!.
+Variables declared in this file are used throughout the other files.
+Variables that are not included in our description, however, are only used in the main function of the program, which resides in !main.cpp!.
 
 \subsubsection*{Test with Python script}
 
@@ -188,7 +193,8 @@ For example, one way to consistently select the second safe source by using the 
   -m, --maximal
 \end{lstlisting}
 
-Apply the Reduce function to the maximal subgraph \grbcm{} instead of the full graph \grb{}. This is done by calculating a maximal reducible graph before running the algorithm.
+Apply the Reduce function to the maximal subgraph \grbcm{} instead of the full graph \grb{}.
+This is done by calculating a maximal reducible graph before running the algorithm.
 
 Removing minimal characters from the graph simplifies the selection of safe sources (Find-initial-state).
 
@@ -232,7 +238,8 @@ Choosing a container over another effectively changes the time complexity of the
 
 The template parameter Directed denotes whether the edges in the graph are directed, undirected or bidirectional.
 
-Furthermore, the class offers template parameters for vertex, edge and graph properties. These properties can then be manipulated in the code via property maps or member access operators.
+Furthermore, the class offers template parameters for vertex, edge and graph properties.
+These properties can then be manipulated in the code via property maps or member access operators.
 
 We defined two graph classes which specialize the provided template parameters.
 
@@ -331,7 +338,8 @@ Set to !RBEdgeProperties!, which is defined as follows:
   };
 \end{lstlisting}
 
-Edges in the red-black graph are labeled by a color, which can be either red or black. By default all edges are black (e.g., the initial \grb{}).
+Edges in the red-black graph are labeled by a color, which can be either red or black.
+By default all edges are black (e.g., the initial \grb{}).
 
 Below, we provide the code for the color enumeration type.
 
@@ -463,7 +471,8 @@ There are multiple scenarios:
   \end{enumerate}
 \end{enumerate}
 
-Clearly, \ref{enum:maximal:1} describes a scenario where \character[i] is not a maximal character in \grb{}. Conversely, \ref{enum:maximal:2} describes two scenarios where the character \character[i] is maximal in \grb{}.
+Clearly, \ref{enum:maximal:1} describes a scenario where \character[i] is not a maximal character in \grb{}.
+Conversely, \ref{enum:maximal:2} describes two scenarios where the character \character[i] is maximal in \grb{}.
 
 When \character[i] includes a character $\character[j] \in \cm{}$, i.e., $S(\character[i]) \supseteq S(\character[j])$, we must replace \character[j] with \character[i] in \cm{}.
 However, we can't possibly know whether \character[j] was the only character in \cm{} that is included in \character[i] or not; for this reason we keep iterating on the list \cm{} to find other characters that can be removed from it.
@@ -536,7 +545,8 @@ This may be caused by the fact that we don't alter the structure of the graph in
 
 So, we opted for keeping !setS!, which enforces our Hasse diagram to have at most one edge between two vertices.
 
-We propose another benchmark comparing runtimes of the program. In input, the three $320 \times 320$ PPP instances we tested before:
+We propose another benchmark comparing runtimes of the program.
+In input, the three $320 \times 320$ PPP instances we tested before:
 
 \begin{center}
   \begin{tabular}{c | c c c c}
@@ -587,7 +597,8 @@ Set to !HDEdgeProperties!, which we define as a list of signed (positive) charac
 \end{lstlisting}
 
 Each edge \edge{v_{i}}{v_{j}} in a Hasse diagram for a graph \gm{} is labeled by the set of positive characters that are present in $v_{j}$ and not in $v_{i}$.
-We represent this set as a list of signed characters. A signed character is structured as follows:
+We represent this set as a list of signed characters.
+A signed character is structured as follows:
 
 \begin{lstlisting}[belowskip=0pt, moreemph={State}]
   struct SignedCharacter {
@@ -657,7 +668,8 @@ The diagram of figure \ref{figure:4:b}, printed with the ostream operator:
 
 To build the Hasse diagram of a maximal reducible graph \gm{}, we start by preparing an array of species of \gm{} sorted in ascending order by the number of characters adjacent to them.
 
-Then, for each species \species[i], we draw up its list of adjacent character names and, if a !HDVertex! $v_{j}$ with the same characters already exists, we append \species[i] to the list of species of $v_{j}$. Otherwise, we add a new !HDVertex! labeled by \species[i] and its list of adjacent characters.
+Then, for each species \species[i], we draw up its list of adjacent character names and, if a !HDVertex! $v_{j}$ with the same characters already exists, we append \species[i] to the list of species of $v_{j}$.
+Otherwise, we add a new !HDVertex! labeled by \species[i] and its list of adjacent characters.
 
 Every time a new !HDVertex! $v_{i}$ is added in the Hasse diagram, we build new edges from the other vertices $v_{j}$ to the vertex $v_{i}$ when needed, i.e., the set of characters of $v_{j}$ is included in the set of characters of $v_{i}$.
 
@@ -671,7 +683,8 @@ The last step involves performing a transitive reduction on the diagram, since m
 
 Multiple definitions for the Realize function have been implemented in the project; these definitions differ from each other by the first argument's type of the function.
 
-The functions return the list of realized signed characters paired with a boolean value. The boolean will be True if the realization of the first argument is feasible for the graph; conversely, the boolean will evaluate to False if the realization is not feasible, and the list of realized characters produced in output will be empty.
+The functions return the list of realized signed characters paired with a boolean value.
+The boolean will be True if the realization of the first argument is feasible for the graph; conversely, the boolean will evaluate to False if the realization is not feasible, and the list of realized characters produced in output will be empty.
 
 \text{} % keep or not?
 
@@ -683,7 +696,8 @@ The functions return the list of realized signed characters paired with a boolea
 
 The first definition concerns the realization of a single signed character \character[][\pm] (!sc!) in a graph \grb{} (!g!).
 
-Before realizing a character we compute the connected components of the graph and verify whether the character in input is inactive and positive (\character[][+]) or active and negative (\character[][-]). When running the Reduce function, no realization should be non-feasible.
+Before realizing a character we compute the connected components of the graph and verify whether the character in input is inactive and positive (\character[][+]) or active and negative (\character[][-]).
+When running the Reduce function, no realization should be non-feasible.
 
 Characters in the graph may become free or universal following the realization of the signed character !sc!.
 Making sure to realize free and universal characters whenever possible is critical to the correctness of the algorithm.
@@ -697,7 +711,8 @@ Making sure to realize free and universal characters whenever possible is critic
           RBGraph& g);
 \end{lstlisting}
 
-An extension of the previously discussed definition involves the realization of a sequence of signed characters. In our implementation, we define this sequence as a list of signed characters \character[][\pm] (!lsc!).
+An extension of the previously discussed definition involves the realization of a sequence of signed characters.
+In our implementation, we define this sequence as a list of signed characters \character[][\pm] (!lsc!).
 
 Since the Realize function for realizing a each signed character may perform multiple realizations (free and universal characters), we had to introduce a check to verify that the next signed character that we want to realize hasn't already been realized.
 
