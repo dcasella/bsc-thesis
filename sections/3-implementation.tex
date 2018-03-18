@@ -2,7 +2,8 @@
 
 \section{Algorithm implementation}\label{section:implementation}
 
-\todo[inline]{Add introduction}
+In this section we give an overview of the thought process behind certain design decisions that went into developing an implementation for the discussed algorithm.
+We discuss and explain our solutions to some of the problems we encountered during the process.
 
 \subsection{Language choices}\label{section:language-choices}
 
@@ -13,19 +14,21 @@ Even though C can be considered as the go-to compiled language for fast computat
 Moreover, \cc{} can be complemented by powerful libraries like \href{http://www.boost.org/}{Boost}, which can improve development speed by a decent margin.
 
 The \cc{}14 Standard has been supported by GCC since 2015, with the release of GCC 5.
-Admittedly, most of the language features we used belong to \cc{}11, but we decided to write cleaner code with the help of brace-enclosed initializer lists.
+Admittedly, most of the language features we used belong to \cc{}11, but we decided to use some of the \cc{}14 ones, like brace-enclosed initializer lists and !std::make_unique!.
+
+Some of the \cc{}11 features we used throughout the whole project codebase are !std::tie! and !std::ignore!, which are needed for accessing descriptor iterators of the Boost Graph Library.
 
 Scripting languages were used to test the correctness of our implementation throughout the developing process.
 Heavy use of the Bash scripting language is to be expected when developing on a Unix system, however, for more complex tasks (like working on matrices), we believe Python to be a more fitting candidate.
 In fact, we implemented a Python script to check whether a c-reduction is successful for a given PPP instance.
 
-\todo[inline]{Talk about stdc++ in more detail?}
-
 \subsubsection{Boost libraries}\label{section:boost-libs}
 
 The Boost libraries provide generic implementations for concepts and abstractions not yet present in the Standard Library, in fact, as of now, ten Boost libraries are included in the \cc{}11 Standard.
 
-\todo[inline]{Talk about CXX11 ABI?}
+When linking with the precompiled Boost libraries provided by the Debian repositories we encountered a modest amount of linker errors about undefined references to symbols that involved types in the !std::__cxx11! namespace.
+This is because we tried to link together object files that were compiled with an older version of GCC.
+We won't go into the details; to fix this, we forced the use of the new ABI by defining !_GLIBCXX_USE_CXX11_ABI! equal to 1 in our Makefile's !g++! commands.
 
 By default, GCC compiles with no optimization ($-O0$), however, Boost advises the use of the $-O2$ or $-O3$ flags.
 We couldn't notice any problem with compiler optimizations, so we chose $-O3$ as the default flag.
@@ -246,13 +249,13 @@ We defined two graph classes which specialize the provided template parameters.
 \subsubsection{RBGraph class}\label{section:rbgraph-class}
 
 The red-black graph class implements an undirected bipartite graph with colored edges.
-\wip{Continue}
+The bundled properties of the adjacency list class are used to discern species from characters and black edges from red ones.
 
 \subsubsection*{Traits and properties}
 
-\todo[inline]{Add introduction?}
+The following snippet of code introduces the adjacency list class we have specialized to produce the red-black graph class employed in the algorithm implementation.
 
-\begin{lstlisting}[belowskip=0pt]
+\begin{lstlisting}
   typedef boost::adjacency_list<
     boost::slistS       // OutEdgeList
     boost::listS,       // VertexList
@@ -262,6 +265,8 @@ The red-black graph class implements an undirected bipartite graph with colored 
     RBGraphProperties   // GraphProperties
   > RBGraph;
 \end{lstlisting}
+
+Below, we explain the reasoning behind each parameter choice.
 
 \paragraph{OutEdgeList}
 
@@ -418,9 +423,10 @@ Each error in the file is reported with an exception describing what went wrong 
 
 For a $n \times m$ matrix, the vertices inserted in the corresponding red-black graph \grb{} are labeled as \species[0], \dots, \species[n-1] and \character[0], \dots, \character[m-1], depending on whether the vertices represent species or characters; then, the assigned vertex names assigned match those of the definitions used throughout the previous sections.
 
-\subsubsection*{Algorithm functions}
+\subsubsection*{Algorithm-related functions}
 
-\todo[inline]{Add introduction?}
+The red-black graph class is supplied with a set of functions which implement the concepts introduced by the Persistent Phylogeny Problem.
+We revise these concepts and describe how each function was implemented in the project.
 
 \paragraph{Active characters}
 
@@ -521,11 +527,11 @@ This procedure follows the definition to the letter, leaving little to no room f
 \subsubsection{HDGraph class}\label{section:hdgraph-class}
 
 The Hasse diagram class implements a directed acyclic graph with labeled edges.
-\wip{Continue}
+The bundled properties of the adjacency list class are used to represent the order of the vertices in the diagram.
 
 \subsubsection*{Traits and properties}
 
-\todo[inline]{Add introduction?}
+The following snippet of code introduces the adjacency list class we have specialized to produce the Hasse diagram class employed in the algorithm implementation.
 
 \begin{lstlisting}[belowskip=0pt]
   typedef boost::adjacency_list<
@@ -660,10 +666,6 @@ The diagram of figure \ref{figure:4:b}, printed with the ostream operator:
   [ s3 ( c1 c2 c3 ) ]:
 \end{lstlisting}
 
-\subsubsection*{Algorithm functions}
-
-\todo[inline]{Add introduction?}
-
 \paragraph{Hasse diagram}
 
 To build the Hasse diagram of a maximal reducible graph \gm{}, we start by preparing an array of species of \gm{} sorted in ascending order by the number of characters adjacent to them.
@@ -677,7 +679,7 @@ The last step involves performing a transitive reduction on the diagram, since m
 
 \subsection{Algorithm functions}\label{section:algorithm-functions}
 
-\todo[inline]{Add introduction?}
+We implemented a set of functions corresponding to the procedures \ref{algorithm:reduce}, \ref{algorithm:find-initial-state} and Realize. There follows an outline of these functions, describing their signatures and how the procedures were translated to Boost \cc{} code.
 
 \subsubsection{Realize characters and species}\label{section:realize}
 
@@ -686,7 +688,7 @@ Multiple definitions for the Realize function have been implemented in the proje
 The functions return the list of realized signed characters paired with a boolean value.
 The boolean will be True if the realization of the first argument is feasible for the graph; conversely, the boolean will evaluate to False if the realization is not feasible, and the list of realized characters produced in output will be empty.
 
-\text{} % keep or not?
+\text{}
 
 \begin{lstlisting}[moreemph={RBGraph, SignedCharacter},
                    moreemph={[2]realize}]
@@ -702,7 +704,7 @@ When running the Reduce function, no realization should be non-feasible.
 Characters in the graph may become free or universal following the realization of the signed character !sc!.
 Making sure to realize free and universal characters whenever possible is critical to the correctness of the algorithm.
 
-\text{} % keep or not?
+\text{}
 
 \begin{lstlisting}[moreemph={RBGraph, SignedCharacter},
                    moreemph={[2]realize}]
@@ -716,7 +718,7 @@ In our implementation, we define this sequence as a list of signed characters \c
 
 Since the Realize function for realizing a each signed character may perform multiple realizations (free and universal characters), we had to introduce a check to verify that the next signed character that we want to realize hasn't already been realized.
 
-\text{} % keep or not?
+\text{}
 
 \begin{lstlisting}[moreemph={RBGraph, SignedCharacter, RBVertex},
                    moreemph={[2]realize}]
