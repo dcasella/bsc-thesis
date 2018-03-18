@@ -88,7 +88,9 @@
   format=hang
 }
 
-\usepackage{tikz}
+\usepackage{tikz, pgfplots}
+
+\pgfplotsset{compat=1.15}
 
 \usepackage{listings, lstautogobble}
 
@@ -112,13 +114,16 @@
   basicstyle=\ttfamily\footnotesize\color{block_fg},
   language=bash,
   mathescape,
+  keywordstyle=\ttfamily\bfseries\footnotesize\color{block_fg},
   alsoletter={:},
   otherkeywords={
     boost::adjacency_list, boost::print_graph,
     remove_vertex_if, if_singleton,
     std::map, getopt,
-    ppp, bin, OPTION..., FILE...,
+    ppp, OPTION..., FILE...,
     check_reduction.py, globals.hpp, main.cpp,
+    grep,
+    -c,
     -h, --help,
     -v, --verbose,
     -t, --testpy,
@@ -152,7 +157,6 @@
   language=c++,
   mathescape,
   commentstyle=\itshape\color{mnk_gray},
-  stringstyle=\color{mnk_yellow},
   keywordstyle=\color{mnk_magenta},
   alsoletter={:},
   emph={int, bool, size_t, std::string},
