@@ -4,8 +4,19 @@
 
 Reconstructing character-based phylogenies, which are used to study the evolution of characters shared by a collection of species (taxa or individuals), is a recurring problem in Bioinformatics.
 However, these problems are still not easily solvable \cite{DPQ2011}.
-In fact, there exist multiple approaches to evolutionary history reconstruction \cite{SD2003, MPL2004, BI2001}; most of those approaches try to reduce the problem by limiting the way (or amount of times) characters can change state in the phylogenetic tree \cite{CS1990, PPptime1994}.
-The Persistent Phylogeny model \cite{PPPbin2012, PPPcgraph2016, PPPptime2016}, which we will talk about in the following sections, allows characters to be acquired and lost at most once in the evolutionary history.
+In fact, there exist multiple approaches to evolutionary history reconstruction \cite{SD2003, MPL2004, BI2001}; most of those approaches try to reduce the problem by limiting the way characters can change state in the phylogenetic tree \cite{CS1990, PPptime1994}.
+
+Different problems often require different approaches and/or models.
+Parsimony methods gained relevance in recent years, with their new applications being haplotyping \cite{PPHltime2005, PPHltime2007}, protein domains/networks analysis and genetic markers analysis.
+One of the most widely studied character-based parsimony models is the Perfect Phylogeny model, which assumes that no character can mutate more than once in the phylogenetic tree.
+
+Recent applications like carcinogenesis, i.e., the process by which normal cells are transformed into cancer cells, can find only a partial solution in perfect phylogenies \cite{PPE2014}.
+More general models are required to represent the possibility of back mutations.
+However, generalized models such as the Dollo and the Camin-Sokal lead to NP-Hard computational problems.
+
+The Persistent Phylogeny model \cite{PPPbin2012}, despite being a generalization of the Perfect Phylogeny model, preserves the computational tractability of it; in fact, a polynomial time algorithm has recently been introduced for solving the Persistent Phylogeny problem \cite{PPPptime2016}.
+This model allows characters to be acquired and lost at most once in the evolutionary history, returning back to the ancestral state.
+Characters that are acquired and lost in a persistent phylogeny are called persistent, and they represent a special case of back mutations, which has been considered in the study of the evolution of protein domains \cite{CPPP2014}.
 
 \subsection{Character evolution in Bioinformatics}\label{section:character-evolution}
 
@@ -25,7 +36,7 @@ Binary phylogeny models have already been explored \cite{PPPbin2012, NPP2007, ID
 A matrix \m{} can then be represented as an undirected bipartite graph.
 The set of vertices of the graph is $V = S \cup C$, where $S$ is the set of species and $C$ the set of characters.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \input{figures/figure1}
 
   \caption{An instance of a character-based phylogeny represented as matrix and graph $(\text{4 species} \times \text{4 characters})$}\label{figure:1}
@@ -118,15 +129,13 @@ We provide an example for a c-reduction being applied to a red-black graph in fi
 
 For a c-reduction to be successful, the graphs \grb[i] induced by the realization of each signed character \character[i][\pm] must not contain a red \sg{}.
 
-We provide some graphical examples of red \sg{}s below.
+We provide some graphical examples of red \sg{}s in figure \ref{figure:2}, where we can observe (\ref{figure:2:a} and \ref{figure:2:c} in particular) that none of the characters are free in \grb{}, making the realization of any \character[i][-] impossible; then, the graph can't be emptied by a c-reduction.
 
-\begin{figure}[H]
+\begin{figure}[hp]
   \input{figures/figure2}
 
   \caption{Examples of red \sg{}s}\label{figure:2}
 \end{figure}
-
-We observe in the figure above (\ref{figure:2:a} and \ref{figure:2:c} in particular) that none of the characters are free in \grb{}, making the realization of any \character[i][-] impossible; then, the graph can't be emptied by a c-reduction.
 
 \begin{definition}[Red \sg{}]\label{definition:sigma-graph}
   Let \grb{} be a red-black graph, \character[0] \character[1] two active characters of \grb{} and \species[0] \species[1] \species[2] three species of \grb{}.
