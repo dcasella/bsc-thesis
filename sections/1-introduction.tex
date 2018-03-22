@@ -6,7 +6,7 @@ Reconstructing character-based phylogenies, which are used to study the evolutio
 However, these problems are still not easily solvable \cite{DPQ2011}.
 In fact, there exist multiple approaches to evolutionary history reconstruction \cite{SD2003, MPL2004, BI2001}; most of those approaches try to reduce the problem by limiting the way characters can change state in the phylogenetic tree \cite{CS1990, PPptime1994}.
 
-Different problems often require different approaches and/or models.
+Each problem requires proper approaches and models.
 Parsimony methods gained relevance in recent years, with their new applications being haplotyping \cite{PPHltime2005, PPHltime2007}, protein domains/networks analysis and genetic markers analysis.
 One of the most widely studied character-based parsimony models is the Perfect Phylogeny model, which assumes that no character can mutate more than once in the phylogenetic tree.
 
@@ -14,18 +14,18 @@ Recent applications like carcinogenesis, i.e., the process by which normal cells
 More general models are required to represent the possibility of back mutations.
 However, generalized models such as the Dollo and the Camin-Sokal lead to NP-Hard computational problems.
 
-The Persistent Phylogeny model \cite{PPPbin2012}, despite being a generalization of the Perfect Phylogeny model, preserves the computational tractability of it; in fact, a polynomial time algorithm has recently been introduced for solving the Persistent Phylogeny problem \cite{PPPptime2016}.
+The Persistent Phylogeny model \cite{PPPbin2012}, despite being a generalization of the Perfect Phylogeny model, preserves its computational tractability; in fact, a polynomial time algorithm has recently been introduced \cite{PPPptime2016}.
 This model allows characters to be acquired and lost at most once in the evolutionary history, returning back to the ancestral state.
 Characters that are acquired and lost in a persistent phylogeny are called persistent, and they represent a special case of back mutations, which has been considered in the study of the evolution of protein domains \cite{CPPP2014}.
 
 \subsection{Character evolution in Bioinformatics}\label{section:character-evolution}
 
-To study the state changes of characters in an evolutionary tree we can represent species and their characters as rows and columns of a matrix; each element of the matrix marks the specific state of a character for a species.
+To study the mutations of characters in an evolutionary tree we can represent species and their characters as rows and columns of a matrix; each element of the matrix marks the specific state of a character for a species.
 
 We will consider the case in which all characters are binary, making them able to assume only one of two states, 0 or 1.
 For each species, the state of a character represents if the species has or doesn't have a given feature.
 
-Binary phylogeny models have already been explored \cite{PPPbin2012, NPP2007, IDPP2004} and used to produce computationally efficient algorithms.
+Binary phylogeny models have already been explored \cite{PPPbin2012, NPP2007, IDPP2004} and used to produce algorithms reaching linear-time computational complexity \cite{PPHltime2007, PPHltime2005}.
 
 \begin{definition}\label{definition:m}
   \m{} is a $n \times m$ binary matrix over a set $m$ of characters and a set $n$ of species.
@@ -47,18 +47,14 @@ Each element $\m[i][j] = 1$ of the matrix (\ref{figure:1:a}) is shown as the edg
 
 \subsubsection{Character states}\label{section:character-states}
 
-In a phylogenetic tree, characters can be acquired and lost; we will use the notation \character[][+] for acquired characters and \character[][-] for lost characters.
-Each \character[][+] and \character[][-] represents a \emph{signed} character.
+Mutations in a phylogenetic tree can be represented as \emph{signed} characters, using the notation \character[][+] for acquired characters and \character[][-] for lost characters.
 
-The Persistent Phylogeny model enables characters to be lost at most once in the evolutionary events; we then need a way to keep track of the characters that were previously acquired.
-This is solved by introducing the concept of \emph{active} characters \cite{PPPbin2012, PPPcgraph2016, PPPptime2016}.
+Since the Persistent Perfect Phylogeny model (PPP for short) enables characters to be lost at most once in the evolutionary events, we keep track of the ones that were previously acquired introducing the concept of \emph{active} characters \cite{PPPbin2012, PPPcgraph2016, PPPptime2016}.
 
 Active characters are a subset of the instance's current set of characters $C = \{ \character[0], \dots, \character[m-1] \}$.
 A character becomes active whenever it is gained in the tree.
 
 \subsection{Persistent Phylogeny problem}\label{section:ppp}
-
-A Persistent Phylogeny can also be called Persistent Perfect Phylogeny (P-PP, or simply put, PPP), since its model is directly related to that of the Perfect Phylogeny.
 
 Each instance of a PPP is associated to a pair \ma{} and a rooted tree $T$, where $T$ is a \emph{persistent phylogeny} for the pair \ma{}.
 
@@ -69,7 +65,7 @@ We now formalize input and output parameters for the Persistent Phylogeny proble
 
   \textit{Input:} pair \ma{} where \m{} is a $n \times m$ binary matrix over a set of $m$ characters and a set of $n$ species, and A is a subset of its characters.
 
-  \textit{Output:} tree $T$ solving \m{} if it exists.
+  \textit{Output:} persistent phylogeny tree $T$ solving \m{} if it exists.
 \end{definition}
 
 If \ma{} admits a persistent phylogeny we then say that the matrix $M$ is solved by the tree $T$ \cite{PPPptime2016,PPPcgraph2016}.

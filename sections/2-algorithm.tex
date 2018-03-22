@@ -5,7 +5,7 @@
 The polynomial-time algorithm introduced in \cite{PPPptime2016} describes a recursive procedure for reducing a red-black graph to an empty graph, if it admits a persistent phylogeny.
 The recursion stops either when the base case is reached - empty graph (line \ref{algorithm:reduce:ifempty}) - or when the algorithm can't compute a successful c-reduction for \grb{} - the graph reaches a state of irreducibility (line \ref{algorithm:reduce:ifnosource}).
 
-The procedure for a Reduce function is given below.
+Follows the procedure for a Reduce function.
 
 \begin{algorithm}[h]
   \caption{Reduce. Recursive reduction of a red-black graph.}\label{algorithm:reduce}
@@ -75,7 +75,7 @@ The procedure for a Reduce function is given below.
   \Return $\langle$ \Sc, Reduce(\grb{}) $\rangle$\;
 \end{algorithm}
 
-The Reduce procedure computes signed character realizations with the support of a Realize function, which follows the definition of Realization (\ref{definition:realization}) and extends it to support a list of signed characters as input.
+The Reduce procedure computes signed character realizations with the support of a Realize function, which follows the definition of Realization (\ref{definition:realization}) and extends it to accept a list of signed characters as input.
 
 We will address the Find-initial-state procedure in detail in section \ref{section:safe-chains-sources}.
 

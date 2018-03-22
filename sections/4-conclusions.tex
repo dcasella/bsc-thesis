@@ -4,7 +4,7 @@
 
 In this thesis we provided an overview of the Persistent Phylogeny problem, some possible applications of it and we tackled the task of implementing the recently introduced polynomial-time algorithm \cite{PPPptime2016} using the \cc{} language and the Boost Graph Library.
 
-We described the process of implementing the proposed algorithm giving a description of the more critical functions, the implementation choices that have been made during development and the reasoning behind them.
+We described the process of implementing the proposed algorithm giving a description of the more critical functions, the implementation choices that have been made during development and highlighted reasoning behind them.
 
 \subsection{Performed experiments}\label{section:experiments}
 
@@ -61,7 +61,7 @@ Moreover, we verified that the algorithm is able to compute a successful c-reduc
   0
 \end{lstlisting}
 
-Testing the functionality of the program on instances with only a limited set of maximal characters doesn't reflect its use-case, even if it's not complete.
+Even though the program doesn't yet support the presence of minimal characters in a PPP instance, testing the functionality of the program only on instances with a limited set of maximal characters doesn't fully reflect its use-case.
 
 We show that applying the algorithm to a set of 2016 "Ok" instances without selecting the Maximal option produces a reasonable amount of correct results (approximately 90\%).
 
@@ -117,3 +117,5 @@ This is perfectly fine, however, in some cases it might be possible to substitut
 We introduced the algorithm (\ref{algorithm:find-initial-state}) for computing an initial state of a non degenerate tree $T$ solving \grb{}.
 However, in section \ref{section:safe-chains-sources}, we explain that in its current form the algorithm doesn't support the presence of minimal characters in the original graph \grb{}.
 We plan to extend our implementation by adding support for minimal characters, consequently introducing conditions that will either further limit some of the checks already in place, or extend the algorithm in a non restraining way.
+
+Finally, the project is open source and can be found on \href{https://github.com/dcasella/persistent-phylogeny}{GitHub}.
